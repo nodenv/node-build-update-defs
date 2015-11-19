@@ -24,12 +24,9 @@ abs_dirname() {
 }
 
 INSTALL_PREFIX="$(abs_dirname "${BASH_SOURCE[0]}")/.."
-cd "$INSTALL_PREFIX" || exit 1
 
-# append nodenv-update-defs to defs path
-# ensure user-supplied path is first; that will be the write target
-# if not provided, then our own share/node-build will be the write target
-NODE_BUILD_DEFINITIONS="${NODE_BUILD_DEFINITIONS:+$NODE_BUILD_DEFINITIONS:}${INSTALL_PREFIX}/share/node-build"
+# prepend our share dir to defs path; the first path will be the write target
+NODE_BUILD_DEFINITIONS="${INSTALL_PREFIX}/share/node-build:${NODE_BUILD_DEFINITIONS}"
 
 # Add `share/node-build/` directory from each nodenv plugin to the list of
 # paths where build definitions are looked up.
@@ -50,6 +47,11 @@ while [ $# -gt 0 ]; do
       echo --force
       echo --help
       exit ;;
+    -d | --destination )
+      shift
+      # overwrite the defs write target
+      NODE_BUILD_DEFINITIONS="$(abs_dirname "$1"):${NODE_BUILD_DEFINITIONS}"
+      ;;
     -f | --force )
       FORCE=true ;;
     -h | --help )
@@ -60,6 +62,9 @@ while [ $# -gt 0 ]; do
   esac
   shift
 done
+
+# change to plugin dir so .node-version will be respected
+cd "$INSTALL_PREFIX" || exit 1
 
 echo "Updating node versions"
 node < <(cat <<JS
