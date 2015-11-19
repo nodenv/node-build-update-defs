@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Usage: nodenv update-defs
+# Summary: Runs the node-build scraper to create definitions for latest
+# versions from nodejs.org
+
+set -e
+
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
+
+abs_dirname() {
+  local cwd="$PWD"
+  local path="$1"
+
+  while [ -n "$path" ]; do
+    cd "${path%/*}" || exit 1
+    local name="${path##*/}"
+    path="$(resolve_link "$name" || true)"
+  done
+
+  pwd
+  cd "$cwd" || exit 1
+}
+
+NODE_BUILD_INSTALL_PREFIX="$(abs_dirname "${BASH_SOURCE[0]}")/.."
+
+# append nodenv-update-defs to defs path
+NODE_BUILD_DEFINITIONS="${NODE_BUILD_DEFINITIONS:+$NODE_BUILD_DEFINITIONS:}${NODE_BUILD_ROOT:-$NODE_BUILD_INSTALL_PREFIX}/share/node-build"
+
+# Add `share/node-build/` directory from each nodenv plugin to the list of
+# paths where build definitions are looked up.
+shopt -s nullglob
+for plugin_path in "$NODENV_ROOT"/plugins/*/share/node-build; do
+  NODE_BUILD_DEFINITIONS="${NODE_BUILD_DEFINITIONS}:${plugin_path}"
+done
+export NODE_BUILD_DEFINITIONS
+shopt -u nullglob
+
+
+/usr/local/var/nodenv/plugins/node-build/script/write-definitions
