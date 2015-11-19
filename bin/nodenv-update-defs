@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Usage: nodenv update-defs
-# Summary: Runs the node-build scraper to create definitions for latest
-# versions from nodejs.org
+# Summary: Scrapes nodejs.org to create build definitions for available versions
+#
+# Usage: nodenv update-defs [ --force ]
 
 set -e
 
@@ -47,10 +47,15 @@ for arg; do
   case "$arg" in
     --complete )
       echo --force
+      echo --help
       exit ;;
     -f | --force )
-      force=true
-      ;;
+      force=true ;;
+    -h | --help )
+      exec nodenv-help update-defs ;;
+    * )
+      nodenv-help --usage update-defs >&2
+      exit 1;;
   esac
 done
 
