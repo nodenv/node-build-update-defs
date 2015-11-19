@@ -42,8 +42,12 @@ shopt -u nullglob
 
 force=false
 
+# Provide nodenv completions
 for arg; do
   case "$arg" in
+    --complete )
+      echo --force
+      exit ;;
     -f | --force )
       force=true
       ;;
