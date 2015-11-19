@@ -7,12 +7,14 @@ var scrape = require('./scraper')
 console.log('Updating node versions')
 scrape({
   baseUrl: 'https://nodejs.org/dist/',
+  definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
   overwrite: force
 })
 
 console.log('Updating iojs versions')
 scrape({
   baseUrl: 'https://iojs.org/dist/',
-  prefix: 'iojs-',
-  overwrite: force
+  definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
+  overwrite: force,
+  prefix: 'iojs-'
 })
