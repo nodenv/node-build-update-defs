@@ -11,7 +11,9 @@ To install, clone this repository into your `$(nodenv root)/plugins` directory.
 
 ## Requirements
 
-Unlike virtually every other nodenv plugin, node-build-update-defs actually depends on node. (The scraper runs on node.) A somewhat recent version of node is required: iojs >= 1.0 or node >= 4.0. It is recommended to configure a node-version within the plugin directory itself (substitute your chosen version):
+iojs >= 1.0 or node >= 4.0
+
+Unlike virtually every other nodenv plugin, node-build-update-defs actually depends on node. (The scraper runs on node.) A somewhat recent version of node is required – it is recommended to configure a node-version within the plugin directory itself (substitute your chosen version):
 
     $ cd "$(nodenv root)"/plugins/node-build-update-defs
     $ nodenv local 4.0
