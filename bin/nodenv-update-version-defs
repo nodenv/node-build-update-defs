@@ -60,7 +60,7 @@ while [ $# -gt 0 ]; do
     -d | --destination )
       shift
       # overwrite the defs write target
-      NODE_BUILD_DEFINITIONS="$(abs_dirname "$1"):${NODE_BUILD_DEFINITIONS}"
+      NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}"
       ;;
     -f | --force )
       FORCE=true ;;
