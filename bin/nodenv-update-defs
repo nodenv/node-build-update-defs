@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
-# Summary: Scrapes nodejs.org to create build definitions for available versions
+#
+# Summary: Create build definitions from nodejs.org and iojs.org
 #
 # Usage: nodenv update-defs [-f] [-d <dir>]
+#
+# Scrapes nodejs.org and iojs.org to create build definitions for node
+# versions not yet available to node-build
 #
 #   -d/--destination   Directory where build definitions will be written
 #   -f/--force         Write build definitions that already exist somewhere in
