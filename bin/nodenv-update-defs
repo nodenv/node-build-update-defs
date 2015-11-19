@@ -41,23 +41,24 @@ export NODE_BUILD_DEFINITIONS
 shopt -u nullglob
 
 
-force=false
+FORCE=false
 
 # Provide nodenv completions
-for arg; do
-  case "$arg" in
+while [ $# -gt 0 ]; do
+  case "$1" in
     --complete )
       echo --force
       echo --help
       exit ;;
     -f | --force )
-      force=true ;;
+      FORCE=true ;;
     -h | --help )
       exec nodenv-help update-defs ;;
     * )
       nodenv-help --usage update-defs >&2
       exit 1;;
   esac
+  shift
 done
 
 echo "Updating node versions"
@@ -66,7 +67,7 @@ node < <(cat <<JS
   scrape({
     baseUrl: 'https://nodejs.org/dist/',
     definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
-    overwrite: $force
+    overwrite: $FORCE
   })
 JS
 )
@@ -77,7 +78,7 @@ node < <(cat <<JS
   scrape({
     baseUrl: 'https://iojs.org/dist/',
     definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
-    overwrite: $force,
+    overwrite: $FORCE,
     prefix: 'iojs-'
   })
 JS
