@@ -23,10 +23,12 @@ abs_dirname() {
   cd "$cwd" || exit 1
 }
 
-NODE_BUILD_INSTALL_PREFIX="$(abs_dirname "${BASH_SOURCE[0]}")/.."
+INSTALL_PREFIX="$(abs_dirname "${BASH_SOURCE[0]}")/.."
 
 # append nodenv-update-defs to defs path
-NODE_BUILD_DEFINITIONS="${NODE_BUILD_DEFINITIONS:+$NODE_BUILD_DEFINITIONS:}${NODE_BUILD_ROOT:-$NODE_BUILD_INSTALL_PREFIX}/share/node-build"
+# ensure user-supplied path is first; that will be the write target
+# if not provided, then our own share/node-build will be the write target
+NODE_BUILD_DEFINITIONS="${NODE_BUILD_DEFINITIONS:+$NODE_BUILD_DEFINITIONS:}${INSTALL_PREFIX}/share/node-build"
 
 # Add `share/node-build/` directory from each nodenv plugin to the list of
 # paths where build definitions are looked up.
@@ -38,4 +40,36 @@ export NODE_BUILD_DEFINITIONS
 shopt -u nullglob
 
 
-/usr/local/var/nodenv/plugins/node-build/script/write-definitions
+force=false
+
+for arg; do
+  case "$arg" in
+    -f | --force )
+      force=true
+      ;;
+  esac
+done
+
+
+echo "Updating node versions"
+node < <(cat <<JS
+  var scrape = require('$INSTALL_PREFIX/lib/scraper')
+  scrape({
+    baseUrl: 'https://nodejs.org/dist/',
+    definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
+    overwrite: $force
+  })
+JS
+)
+
+echo "Updating node versions"
+node < <(cat <<JS
+  var scrape = require('$INSTALL_PREFIX/lib/scraper')
+  scrape({
+    baseUrl: 'https://iojs.org/dist/',
+    definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
+    overwrite: $force,
+    prefix: 'iojs-'
+  })
+JS
+)
