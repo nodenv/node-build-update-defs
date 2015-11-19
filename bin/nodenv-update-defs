@@ -49,6 +49,7 @@ FORCE=false
 while [ $# -gt 0 ]; do
   case "$1" in
     --complete )
+      echo --destination
       echo --force
       echo --help
       exit ;;
