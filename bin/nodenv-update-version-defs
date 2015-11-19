@@ -65,9 +65,9 @@ while [ $# -gt 0 ]; do
     -f | --force )
       FORCE=true ;;
     -h | --help )
-      exec nodenv-help update-defs ;;
+      exec nodenv-help update-version-defs ;;
     * )
-      nodenv-help --usage update-defs >&2
+      nodenv-help --usage update-version-defs >&2
       exit 1;;
   esac
   shift
