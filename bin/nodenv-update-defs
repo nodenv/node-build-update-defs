@@ -24,6 +24,7 @@ abs_dirname() {
 }
 
 INSTALL_PREFIX="$(abs_dirname "${BASH_SOURCE[0]}")/.."
+cd "$INSTALL_PREFIX" || exit 1
 
 # append nodenv-update-defs to defs path
 # ensure user-supplied path is first; that will be the write target
@@ -59,10 +60,9 @@ for arg; do
   esac
 done
 
-
 echo "Updating node versions"
 node < <(cat <<JS
-  var scrape = require('$INSTALL_PREFIX/lib/scraper')
+  var scrape = require('./lib/scraper')
   scrape({
     baseUrl: 'https://nodejs.org/dist/',
     definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
@@ -73,7 +73,7 @@ JS
 
 echo "Updating node versions"
 node < <(cat <<JS
-  var scrape = require('$INSTALL_PREFIX/lib/scraper')
+  var scrape = require('./lib/scraper')
   scrape({
     baseUrl: 'https://iojs.org/dist/',
     definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
