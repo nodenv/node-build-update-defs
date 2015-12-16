@@ -87,7 +87,7 @@ node < <(cat <<JS
 JS
 )
 
-echo "Updating node versions"
+echo "Updating iojs versions"
 node < <(cat <<JS
   var scrape = require('./lib/scraper')
   scrape({
