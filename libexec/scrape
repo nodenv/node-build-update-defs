@@ -1,0 +1,48 @@
+#! /usr/bin/env node
+
+var scrape = require('../lib/scraper')
+
+var nodejs = require('../lib/scraper-nodejs')
+var iojs = require('../lib/scraper-iojs')
+
+var nodes = {}
+var options = {
+  dryRun: false,
+  overwrite: false,
+  definitionPaths: (process.env.NODE_BUILD_DEFINITIONS || '').split(':')
+}
+
+process.argv.forEach(function (arg) {
+  switch (arg) {
+    case '-f':
+    case '--force':
+      options.overwrite = true
+      break
+    case '-n':
+    case '--dry-run':
+      options.dryRun = true
+      break
+    case '--nodejs':
+      nodes.nodejs = nodejs
+      break
+    case '--no-nodejs':
+      delete nodes.nodejs
+      break
+    case '--iojs':
+      nodes.iojs = iojs
+      break
+    case '--no-iojs':
+      delete nodes.iojs
+      break
+  }
+})
+
+if (!Object.keys(nodes).length) {
+  nodes = { nodejs: nodejs, iojs: iojs }
+}
+
+for (var node in nodes) {
+  if (nodes.hasOwnProperty(node)) {
+    scrape(nodes[node], options)
+  }
+}
