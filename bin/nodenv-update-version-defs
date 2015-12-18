@@ -23,13 +23,13 @@ abs_dirname() {
   local path="$1"
 
   while [ -n "$path" ]; do
-    cd "${path%/*}" || exit 1
+    cd "${path%/*}"
     local name="${path##*/}"
     path="$(resolve_link "$name" || true)"
   done
 
   pwd
-  cd "$cwd" || exit 1
+  cd "$cwd"
 }
 
 INSTALL_PREFIX="$(abs_dirname "${BASH_SOURCE[0]}")/.."
@@ -46,26 +46,30 @@ done
 export NODE_BUILD_DEFINITIONS
 shopt -u nullglob
 
-
-FORCE=false
+declare -a SCRAPE_OPTS
 
 # Provide nodenv completions
 while [ $# -gt 0 ]; do
   case "$1" in
     --complete )
       echo --destination
+      echo --dry-run
       echo --force
       echo --help
+      echo --iojs --no-iojs
+      echo --nodejs --no-nodejs
       exit ;;
     -d | --destination )
       shift
       # overwrite the defs write target
-      NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}"
-      ;;
-    -f | --force )
-      FORCE=true ;;
+      NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
     -h | --help )
       exec nodenv-help update-version-defs ;;
+    -f | --force | \
+    -n | --dry-run | \
+    --iojs | --no-iojs | \
+    --nodejs | --no-nodejs )
+      SCRAPE_OPTS[${#SCRAPE_OPTS[*]}]="$1" ;;
     * )
       nodenv-help --usage update-version-defs >&2
       exit 1;;
@@ -76,25 +80,4 @@ done
 # change to plugin dir so .node-version will be respected
 cd "$INSTALL_PREFIX" || exit 1
 
-echo "Updating node versions"
-node < <(cat <<JS
-  var scrape = require('./lib/scraper')
-  scrape({
-    baseUrl: 'https://nodejs.org/dist/',
-    definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
-    overwrite: $FORCE
-  })
-JS
-)
-
-echo "Updating iojs versions"
-node < <(cat <<JS
-  var scrape = require('./lib/scraper')
-  scrape({
-    baseUrl: 'https://iojs.org/dist/',
-    definitionPaths: process.env.NODE_BUILD_DEFINITIONS.split(':'),
-    overwrite: $FORCE,
-    prefix: 'iojs-'
-  })
-JS
-)
+exec ./libexec/scrape "${SCRAPE_OPTS[@]}"
