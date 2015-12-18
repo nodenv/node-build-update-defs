@@ -66,6 +66,7 @@ while [ $# -gt 0 ]; do
       echo --help
       echo --iojs
       echo --nodejs
+      echo --jxcore --no-jxcore
       exit ;;
     -d | --destination )
       shift
@@ -75,6 +76,7 @@ while [ $# -gt 0 ]; do
       exec nodenv-help update-version-defs ;;
     -f | --force | \
     -n | --dry-run | \
+    --jxcore | --no-jxcore | \
     --iojs | --nodejs )
       SCRAPE_OPTS[${#SCRAPE_OPTS[*]}]="$1" ;;
     * )

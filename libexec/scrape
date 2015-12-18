@@ -4,6 +4,7 @@ var scrape = require('../lib/scraper')
 
 var nodejs = require('../lib/scraper-nodejs')
 var iojs = require('../lib/scraper-iojs')
+var jxcore = require('../lib/scraper-jxcore')
 
 var nodes = {}
 var options = {
@@ -28,11 +29,17 @@ process.argv.forEach(function (arg) {
     case '--iojs':
       nodes.iojs = iojs
       break
+    case '--jxcore':
+      nodes.jxcore = jxcore
+      break
+    case '--no-jxcore':
+      delete nodes.jxcore
+      break
   }
 })
 
 if (!Object.keys(nodes).length) {
-  nodes = { nodejs: nodejs, iojs: iojs }
+  nodes = { nodejs: nodejs, iojs: iojs, jxcore: jxcore }
 }
 
 for (var node in nodes) {
