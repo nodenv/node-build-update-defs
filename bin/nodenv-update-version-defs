@@ -56,8 +56,8 @@ while [ $# -gt 0 ]; do
       echo --dry-run
       echo --force
       echo --help
-      echo --iojs --no-iojs
-      echo --nodejs --no-nodejs
+      echo --iojs
+      echo --nodejs
       exit ;;
     -d | --destination )
       shift
@@ -67,8 +67,7 @@ while [ $# -gt 0 ]; do
       exec nodenv-help update-version-defs ;;
     -f | --force | \
     -n | --dry-run | \
-    --iojs | --no-iojs | \
-    --nodejs | --no-nodejs )
+    --iojs | --nodejs )
       SCRAPE_OPTS[${#SCRAPE_OPTS[*]}]="$1" ;;
     * )
       nodenv-help --usage update-version-defs >&2

@@ -25,14 +25,8 @@ process.argv.forEach(function (arg) {
     case '--nodejs':
       nodes.nodejs = nodejs
       break
-    case '--no-nodejs':
-      delete nodes.nodejs
-      break
     case '--iojs':
       nodes.iojs = iojs
-      break
-    case '--no-iojs':
-      delete nodes.iojs
       break
   }
 })
