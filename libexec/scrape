@@ -9,7 +9,7 @@ var nodes = {}
 var options = {
   dryRun: false,
   overwrite: false,
-  definitionPaths: (process.env.NODE_BUILD_DEFINITIONS || '').split(':')
+  definitionPaths: (process.env.NODE_BUILD_DEFINITIONS || 'share/node-build').split(':')
 }
 
 process.argv.forEach(function (arg) {
