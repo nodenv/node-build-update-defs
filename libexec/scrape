@@ -23,17 +23,14 @@ process.argv.forEach(function (arg) {
     case '--dry-run':
       options.dryRun = true
       break
-    case '--nodejs':
-      nodes.nodejs = nodejs
-      break
     case '--iojs':
       nodes.iojs = iojs
       break
+    case '--nodejs':
+      nodes.nodejs = nodejs
+      break
     case '--jxcore':
       nodes.jxcore = jxcore
-      break
-    case '--no-jxcore':
-      delete nodes.jxcore
       break
   }
 })
