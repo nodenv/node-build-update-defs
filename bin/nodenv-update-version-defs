@@ -41,7 +41,7 @@ NODE_BUILD_DEFINITIONS="${INSTALL_PREFIX}/share/node-build:${NODE_BUILD_DEFINITI
 # paths where build definitions are looked up.
 shopt -s nullglob
 for plugin_path in "$NODENV_ROOT"/plugins/*/share/node-build; do
-  NODE_BUILD_DEFINITIONS="${NODE_BUILD_DEFINITIONS}:${plugin_path}"
+  NODE_BUILD_DEFINITIONS="${NODE_BUILD_DEFINITIONS%:}:${plugin_path}"
 done
 export NODE_BUILD_DEFINITIONS
 shopt -u nullglob
