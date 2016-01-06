@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+#
+# Summary: Find and remove duplicate build definitions
+#
+# Usage: nodenv prune-version-defs [-f] [-d <dir>] [-n] [-v]
+#
+# Scrapes nodejs.org and iojs.org to create build definitions for node
+# versions not yet available to node-build
+#
+#   -d/--destination   Directory from which duplicate build definitions will
+#                      be removed
+#   -f/--force         Remove duplicates even if file contents differ
+#   -n/--dry-run       List files that would be removed, without doing so;
+#                      implies --verbose
+#   -v/--verbose       List duplicate files as they are removed
+#
+
+set -e
+
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
+
+abs_dirname() {
+  local cwd="$PWD"
+  local path="$1"
+
+  while [ -n "$path" ]; do
+    cd "${path%/*}"
+    local name="${path##*/}"
+    path="$(resolve_link "$name" || true)"
+  done
+
+  pwd
+  cd "$cwd"
+}
+
+INSTALL_PREFIX="$(abs_dirname "${BASH_SOURCE[0]}")/.."
+
+# prepend our share dir to defs path; the first path will be the write target
+NODE_BUILD_DEFINITIONS="${INSTALL_PREFIX}/share/node-build:${NODE_BUILD_DEFINITIONS}"
+
+# Add `share/node-build/` directory from each nodenv plugin to the list of
+# paths where build definitions are looked up.
+shopt -s nullglob
+for plugin_path in "$NODENV_ROOT"/plugins/*/share/node-build; do
+  NODE_BUILD_DEFINITIONS="${NODE_BUILD_DEFINITIONS%:}:${plugin_path}"
+done
+export NODE_BUILD_DEFINITIONS
+shopt -u nullglob
+
+# Provide nodenv completions
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --complete )
+      echo --destination
+      echo --dry-run
+      echo --force
+      echo --help
+      echo --verbose
+      exit ;;
+    -d | --destination )
+      shift
+      # overwrite the defs write target
+      NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
+    -f | --force )
+      FORCE=true ;;
+    -h | --help )
+      exec nodenv-help update-version-defs ;;
+    -n | --dry-run )
+      DRY_RUN=true
+      VERBOSE=true ;;
+    -v | --verbose )
+      VERBOSE=true ;;
+    * )
+      nodenv-help --usage update-version-defs >&2
+      exit 1;;
+  esac
+  shift
+done
+
+target_dir="$(abs_dirname "${NODE_BUILD_DEFINITIONS%%:*}"/)"
+remaining_dirs="${NODE_BUILD_DEFINITIONS#*:}"
+
+for file in "$target_dir"/*; do
+  file="$(basename "$file")"
+  duplicate="$target_dir/$file"
+  IFS=:
+  for dir in $remaining_dirs; do
+    original="$dir/$file"
+    if [ -f "$original" ]; then
+      if diff -q "$original" "$duplicate" >&2 || [ -n "$FORCE" ]; then
+        [ -z "$VERBOSE" ] || echo "$duplicate"
+        [ -n "$DRY_RUN" ] || rm -f "$duplicate"
+      fi
+    fi
+  done
+done
