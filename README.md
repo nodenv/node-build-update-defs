@@ -38,5 +38,7 @@ In normal operation, build definitions will gradually build up in this plugin's 
 
 This subcommand removes (or lists with `--dry-run`) any duplicate build definitions. Like `update-version-defs`, `--destination <dir>` overrides the default value of `<plugin-root>/share/node-build` as the directory from which duplicates are removed. Duplicates are searched for under `NODE_BUILD_DEFINITIONS` and are determined by both filename *and* contents. The file contents check can be overridden with `--force`,  which will delete duplicates based solely on filename.
 
+This subcommand is silent by default, only printing removed duplicates if `--verbose`. (`--dry-run` implies `--verbose`)
+
 [nodenv]: https://github.com/OiNutter/nodenv
 [node-build]: https://github.com/OiNutter/node-build
