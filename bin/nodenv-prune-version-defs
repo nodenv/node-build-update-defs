@@ -87,6 +87,8 @@ for file in "$target_dir"/*; do
   duplicate="$target_dir/$file"
   IFS=:
   for dir in $remaining_dirs; do
+    if [ "$target_dir" -ef "$dir" ]; then continue; fi
+
     original="$dir/$file"
     if [ -f "$original" ]; then
       if diff -q "$original" "$duplicate" >&2 || [ -n "$FORCE" ]; then
