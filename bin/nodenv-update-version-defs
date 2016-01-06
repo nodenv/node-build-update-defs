@@ -2,7 +2,7 @@
 #
 # Summary: Create build definitions from nodejs.org and iojs.org
 #
-# Usage: nodenv update-defs [-f] [-d <dir>]
+# Usage: nodenv update-version-defs [-f] [-d <dir>] [-n] [--nodejs] [--iojs]
 #
 # Scrapes nodejs.org and iojs.org to create build definitions for node
 # versions not yet available to node-build
@@ -10,6 +10,12 @@
 #   -d/--destination   Directory where build definitions will be written
 #   -f/--force         Write build definitions that already exist somewhere in
 #                      NODE_BUILD_DEFINITIONS paths; possibly overwriting
+#   -n/--dry-run       List definitions that would be created; without doing so
+#
+#   --nodejs           Scrape nodejs.org for node definitions;
+#                      If none of --nodejs,--iojs are supplied, defaults to all
+#   --iojs             Scrape iojs.org for node definitions;
+#                      If none of --nodejs,--iojs are supplied, defaults to all
 #
 
 set -e
