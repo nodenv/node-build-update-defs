@@ -1,21 +1,18 @@
 #!/usr/bin/env bash
 #
-# Summary: Create build definitions from nodejs.org and iojs.org
+# Summary: Find and remove duplicate build definitions
 #
-# Usage: nodenv update-version-defs [-f] [-d <dir>] [-n] [--nodejs] [--iojs]
+# Usage: nodenv prune-version-defs [-f] [-d <dir>] [-n] [-v]
 #
 # Scrapes nodejs.org and iojs.org to create build definitions for node
 # versions not yet available to node-build
 #
-#   -d/--destination   Directory where build definitions will be written
-#   -f/--force         Write build definitions that already exist somewhere in
-#                      NODE_BUILD_DEFINITIONS paths; possibly overwriting
-#   -n/--dry-run       List definitions that would be created; without doing so
-#
-#   --nodejs           Scrape nodejs.org for node definitions;
-#                      If none of --nodejs,--iojs are supplied, defaults to all
-#   --iojs             Scrape iojs.org for node definitions;
-#                      If none of --nodejs,--iojs are supplied, defaults to all
+#   -d/--destination   Directory from which duplicate build definitions will
+#                      be removed
+#   -f/--force         Remove duplicates even if file contents differ
+#   -n/--dry-run       List files that would be removed, without doing so;
+#                      implies --verbose
+#   -v/--verbose       List duplicate files as they are removed
 #
 
 set -e
@@ -52,8 +49,6 @@ done
 export NODE_BUILD_DEFINITIONS
 shopt -u nullglob
 
-declare -a SCRAPE_OPTS
-
 # Provide nodenv completions
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -62,19 +57,21 @@ while [ $# -gt 0 ]; do
       echo --dry-run
       echo --force
       echo --help
-      echo --iojs
-      echo --nodejs
+      echo --verbose
       exit ;;
     -d | --destination )
       shift
       # overwrite the defs write target
       NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
+    -f | --force )
+      FORCE=true ;;
     -h | --help )
       exec nodenv-help update-version-defs ;;
-    -f | --force | \
-    -n | --dry-run | \
-    --iojs | --nodejs )
-      SCRAPE_OPTS[${#SCRAPE_OPTS[*]}]="$1" ;;
+    -n | --dry-run )
+      DRY_RUN=true
+      VERBOSE=true ;;
+    -v | --verbose )
+      VERBOSE=true ;;
     * )
       nodenv-help --usage update-version-defs >&2
       exit 1;;
@@ -82,7 +79,22 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-# change to plugin dir so .node-version will be respected
-cd "$INSTALL_PREFIX" || exit 1
+target_dir="$(abs_dirname "${NODE_BUILD_DEFINITIONS%%:*}"/)"
+remaining_dirs="${NODE_BUILD_DEFINITIONS#*:}"
 
-exec ./libexec/scrape "${SCRAPE_OPTS[@]}"
+for file in "$target_dir"/*; do
+  file="$(basename "$file")"
+  duplicate="$target_dir/$file"
+  IFS=:
+  for dir in $remaining_dirs; do
+    if [ "$target_dir" -ef "$dir" ]; then continue; fi
+
+    original="$dir/$file"
+    if [ -f "$original" ]; then
+      if diff -q "$original" "$duplicate" >&2 || [ -n "$FORCE" ]; then
+        [ -z "$VERBOSE" ] || echo "$duplicate"
+        [ -n "$DRY_RUN" ] || rm -f "$duplicate"
+      fi
+    fi
+  done
+done
