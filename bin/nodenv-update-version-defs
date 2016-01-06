@@ -41,7 +41,8 @@ abs_dirname() {
 INSTALL_PREFIX="$(abs_dirname "${BASH_SOURCE[0]}")/.."
 
 # prepend our share dir to defs path; the first path will be the write target
-NODE_BUILD_DEFINITIONS="${INSTALL_PREFIX}/share/node-build:${NODE_BUILD_DEFINITIONS}"
+# also insert NODE_BUILD_ROOT, if set
+NODE_BUILD_DEFINITIONS="${INSTALL_PREFIX}/share/node-build${NODE_BUILD_ROOT:+:$NODE_BUILD_ROOT}${NODE_BUILD_DEFINITIONS:+:$NODE_BUILD_DEFINITIONS}"
 
 # Add `share/node-build/` directory from each nodenv plugin to the list of
 # paths where build definitions are looked up.
