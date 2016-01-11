@@ -4,8 +4,9 @@
 #
 # Usage: nodenv prune-version-defs [-f] [-d <dir>] [-n] [-v]
 #
-# Scrapes nodejs.org and iojs.org to create build definitions for node
-# versions not yet available to node-build
+# Removes build definitions that exist elsewhere in the NODE_BUILD_DEFINITIONS
+# lookup path; intended primarily to remove locally-scraped duplicates once
+# they are included in node-build itself.
 #
 #   -d/--destination   Directory from which duplicate build definitions will
 #                      be removed
