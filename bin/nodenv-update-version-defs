@@ -10,7 +10,8 @@
 #   -d/--destination   Directory where build definitions will be written
 #   -f/--force         Write build definitions that already exist somewhere in
 #                      NODE_BUILD_DEFINITIONS paths; possibly overwriting
-#   -n/--dry-run       List definitions that would be created; without doing so
+#   -n/--dry-run       Print build definitions that would have been written;
+#                      without doing so
 #
 #   --nodejs           Scrape nodejs.org for node definitions;
 #                      If none of --nodejs,--iojs are supplied, defaults to all
@@ -84,6 +85,6 @@ while [ $# -gt 0 ]; do
 done
 
 # change to plugin dir so .node-version will be respected
-cd "$INSTALL_PREFIX" || exit 1
+cd "$INSTALL_PREFIX"
 
 exec ./libexec/scrape "${SCRAPE_OPTS[@]}"
