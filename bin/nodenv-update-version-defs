@@ -63,7 +63,6 @@ while [ $# -gt 0 ]; do
       echo --destination
       echo --dry-run
       echo --force
-      echo --help
       echo --iojs
       echo --nodejs
       exit ;;
@@ -71,8 +70,6 @@ while [ $# -gt 0 ]; do
       shift
       # overwrite the defs write target
       NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
-    -h | --help )
-      exec nodenv-help update-version-defs ;;
     -f | --force | \
     -n | --dry-run | \
     --iojs | --nodejs )
