@@ -40,5 +40,5 @@ This subcommand removes (or lists with `--dry-run`) any duplicate build definiti
 
 This subcommand is silent by default, only printing removed duplicates if `--verbose`. (`--dry-run` implies `--verbose`)
 
-[nodenv]: https://github.com/OiNutter/nodenv
-[node-build]: https://github.com/OiNutter/node-build
+[nodenv]: https://github.com/nodenv/nodenv
+[node-build]: https://github.com/nodenv/node-build
