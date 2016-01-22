@@ -7,7 +7,7 @@ create [node-build][]-compatible definitions from nodejs.org and iojs.org.
 
 To install, clone this repository into your `$(nodenv root)/plugins` directory.
 
-    $ git clone https://github.com/jasonkarns/node-build-update-defs.git "$(nodenv root)"/plugins/node-build-update-defs
+    $ git clone https://github.com/nodenv/node-build-update-defs.git "$(nodenv root)"/plugins/node-build-update-defs
 
 ## Requirements
 
