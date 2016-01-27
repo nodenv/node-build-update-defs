@@ -1,0 +1,28 @@
+{
+  "name": "node-build-update-defs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Scrape build definitions from nodejs.org and iojs.org",
+  "homepage": "https://github.com/nodenv/node-build-update-defs#readme",
+  "license": "MIT",
+  "author": "Jason Karns <jason@karns.name> (http://jason.karns.name)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodenv/node-build-update-defs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nodenv/node-build-update-defs/issues"
+  },
+  "directories": {
+    "bin": "bin",
+    "lib": [ "lib", "libexec" ],
+    "test": "test"
+  },
+  "scripts": {
+    "publish:brew": "brew-publish $npm_package_name v$npm_package_version",
+    "postversion": "git push origin master v$npm_package_version && npm run publish:brew"
+  },
+  "devDependencies": {
+    "brew-publish": "git+https://github.com/jasonkarns/brew-publish.git#nodenv-tap"
+  }
+}
