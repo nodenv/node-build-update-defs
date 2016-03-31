@@ -3,7 +3,6 @@
 var scrape = require('../lib/scraper')
 
 var nodejs = require('../lib/scraper-nodejs')
-var iojs = require('../lib/scraper-iojs')
 
 var nodes = {}
 var options = {
@@ -22,9 +21,6 @@ process.argv.forEach(function (arg) {
     case '--dry-run':
       options.dryRun = true
       break
-    case '--iojs':
-      nodes.iojs = iojs
-      break
     case '--nodejs':
       nodes.nodejs = nodejs
       break
@@ -32,7 +28,7 @@ process.argv.forEach(function (arg) {
 })
 
 if (!Object.keys(nodes).length) {
-  nodes = { nodejs: nodejs, iojs: iojs }
+  nodes = { nodejs: nodejs }
 }
 
 for (var node in nodes) {

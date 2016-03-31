@@ -2,7 +2,7 @@
   "name": "node-build-update-defs",
   "version": "1.0.0",
   "private": true,
-  "description": "Scrape build definitions from nodejs.org and iojs.org",
+  "description": "Scrape build definitions from nodejs.org",
   "homepage": "https://github.com/nodenv/node-build-update-defs#readme",
   "license": "MIT",
   "author": "Jason Karns <jason@karns.name> (http://jason.karns.name)",
