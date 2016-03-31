@@ -1,6 +1,6 @@
 {
   "name": "node-build-update-defs",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "description": "Scrape build definitions from nodejs.org",
   "homepage": "https://github.com/nodenv/node-build-update-defs#readme",
@@ -15,7 +15,10 @@
   },
   "directories": {
     "bin": "bin",
-    "lib": [ "lib", "libexec" ],
+    "lib": [
+      "lib",
+      "libexec"
+    ],
     "test": "test"
   },
   "scripts": {
