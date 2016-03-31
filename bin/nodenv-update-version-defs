@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# Summary: Create build definitions from nodejs.org, iojs.org and jxcore.com
+# Summary: Create build definitions from nodejs.org and iojs.org
 #
-# Usage: nodenv update-version-defs [-f] [-d <dir>] [-n] [--nodejs] [--iojs] [--jxcore]
+# Usage: nodenv update-version-defs [-f] [-d <dir>] [-n] [--nodejs] [--iojs]
 #
 # Scrapes nodejs.org and iojs.org to create build definitions for node
 # versions not yet available to node-build
@@ -14,11 +14,9 @@
 #                      without doing so
 #
 #   --nodejs           Scrape nodejs.org for node definitions;
-#                      If none of --nodejs,--iojs, --jxcore are supplied, defaults to all
+#                      If none of --nodejs,--iojs are supplied, defaults to all
 #   --iojs             Scrape iojs.org for node definitions;
-#                      If none of --nodejs,--iojs, --jxcore are supplied, defaults to all
-#   --jxcore           Scrape jxcore.com for node definitions;
-#                      If none of --nodejs,--iojs, --jxcore are supplied, defaults to all
+#                      If none of --nodejs,--iojs are supplied, defaults to all
 #
 
 set -e
@@ -67,7 +65,6 @@ while [ $# -gt 0 ]; do
       echo --force
       echo --iojs
       echo --nodejs
-      echo --jxcore
       exit ;;
     -d | --destination )
       shift
@@ -75,7 +72,7 @@ while [ $# -gt 0 ]; do
       NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
     -f | --force | \
     -n | --dry-run | \
-    --iojs | --nodejs | --jxcore )
+    --iojs | --nodejs )
       SCRAPE_OPTS[${#SCRAPE_OPTS[*]}]="$1" ;;
     * )
       nodenv-help --usage update-version-defs >&2
