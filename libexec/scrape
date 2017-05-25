@@ -3,6 +3,7 @@
 var scrape = require('../lib/scraper')
 
 var nodejs = require('../lib/scraper-nodejs')
+var nodejs_rcs = require('../lib/scraper-nodejs-rcs')
 
 var nodes = {}
 var options = {
@@ -23,6 +24,9 @@ process.argv.forEach(function (arg) {
       break
     case '--nodejs':
       nodes.nodejs = nodejs
+      break
+    case '--nodejs-rcs':
+      nodes.nodejs_rcs = nodejs_rcs
       break
   }
 })
