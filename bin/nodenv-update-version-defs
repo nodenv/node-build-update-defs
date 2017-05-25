@@ -69,7 +69,8 @@ while [ $# -gt 0 ]; do
       NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
     -f | --force | \
     -n | --dry-run | \
-    --nodejs )
+    --nodejs  | \
+    --nodejs-rcs )
       SCRAPE_OPTS[${#SCRAPE_OPTS[*]}]="$1" ;;
     * )
       nodenv-help --usage update-version-defs >&2

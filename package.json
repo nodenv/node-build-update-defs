@@ -23,7 +23,8 @@
   },
   "scripts": {
     "publish:brew": "brew-publish $npm_package_name v$npm_package_version",
-    "postversion": "git push --follow-tags && npm run publish:brew"
+    "postversion": "git push --follow-tags && npm run publish:brew",
+    "update:dryrun": "$npm_package_directories_bin/nodenv-update-version-defs --dry-run"
   },
   "devDependencies": {
     "brew-publish": "^2.0.0"
