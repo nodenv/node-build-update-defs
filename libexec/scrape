@@ -3,9 +3,9 @@
 var scrape = require('../lib/scraper')
 
 var nodejs = require('../lib/scraper-nodejs')
-var nodejs_rcs = require('../lib/scraper-nodejs-rcs')
+var nodejsRcs = require('../lib/scraper-nodejs-rcs')
 
-var nodes = {}
+var nodesToScrape = []
 var options = {
   dryRun: false,
   overwrite: false,
@@ -23,20 +23,18 @@ process.argv.forEach(function (arg) {
       options.dryRun = true
       break
     case '--nodejs':
-      nodes.nodejs = nodejs
+      nodesToScrape.push(nodejs)
       break
     case '--nodejs-rcs':
-      nodes.nodejs_rcs = nodejs_rcs
+      nodesToScrape.push(nodejsRcs)
       break
   }
 })
 
-if (!Object.keys(nodes).length) {
-  nodes = { nodejs: nodejs }
+if (!nodesToScrape.length) {
+  nodesToScrape = [ nodejs, nodejsRcs ]
 }
 
-for (var node in nodes) {
-  if (nodes.hasOwnProperty(node)) {
-    scrape(nodes[node], options)
-  }
-}
+nodesToScrape.forEach(function(node){
+  scrape(node, options)
+})
