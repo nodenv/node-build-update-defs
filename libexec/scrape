@@ -32,7 +32,7 @@ process.argv.forEach(function (arg) {
 })
 
 if (!nodesToScrape.length) {
-  nodesToScrape = [ nodejs, nodejsPre ]
+  nodesToScrape = [ nodejs ]
 }
 
 nodesToScrape.forEach(function(node){

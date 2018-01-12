@@ -15,7 +15,7 @@
 #
 #   --nodejs           Scrape nodejs.org for node definitions;
 #   --nodejs-pre       Scrape nodejs.org for node pre-release definitions;
-#                      If none of --nodejs,--nodejs-pre are supplied, defaults to all
+#                      If none of --nodejs,--nodejs-pre are supplied, defaults to --nodejs
 #
 
 set -e
