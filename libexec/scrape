@@ -3,7 +3,7 @@
 var scrape = require('../lib/scraper')
 
 var nodejs = require('../lib/scraper-nodejs')
-var nodejsRcs = require('../lib/scraper-nodejs-rcs')
+var nodejsPre = require('../lib/scraper-nodejs-pre')
 
 var nodesToScrape = []
 var options = {
@@ -25,14 +25,14 @@ process.argv.forEach(function (arg) {
     case '--nodejs':
       nodesToScrape.push(nodejs)
       break
-    case '--nodejs-rcs':
-      nodesToScrape.push(nodejsRcs)
+    case '--nodejs-pre':
+      nodesToScrape.push(nodejsPre)
       break
   }
 })
 
 if (!nodesToScrape.length) {
-  nodesToScrape = [ nodejs, nodejsRcs ]
+  nodesToScrape = [ nodejs, nodejsPre ]
 }
 
 nodesToScrape.forEach(function(node){

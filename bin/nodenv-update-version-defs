@@ -2,7 +2,7 @@
 #
 # Summary: Create build definitions from nodejs.org
 #
-# Usage: nodenv update-version-defs [-f] [-d <dir>] [-n] [--nodejs]
+# Usage: nodenv update-version-defs [-f] [-d <dir>] [-n] [--nodejs|--nodejs-pre]
 #
 # Scrapes nodejs.org to create build definitions for node
 # versions not yet available to node-build
@@ -14,7 +14,8 @@
 #                      without doing so
 #
 #   --nodejs           Scrape nodejs.org for node definitions;
-#                      If none of --nodejs are supplied, defaults to all
+#   --nodejs-pre       Scrape nodejs.org for node pre-release definitions;
+#                      If none of --nodejs,--nodejs-pre are supplied, defaults to all
 #
 
 set -e
@@ -62,6 +63,7 @@ while [ $# -gt 0 ]; do
       echo --dry-run
       echo --force
       echo --nodejs
+      echo --nodejs-pre
       exit ;;
     -d | --destination )
       shift
@@ -70,7 +72,7 @@ while [ $# -gt 0 ]; do
     -f | --force | \
     -n | --dry-run | \
     --nodejs  | \
-    --nodejs-rcs )
+    --nodejs-pre )
       SCRAPE_OPTS[${#SCRAPE_OPTS[*]}]="$1" ;;
     * )
       nodenv-help --usage update-version-defs >&2
