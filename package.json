@@ -29,6 +29,6 @@
     "start:dryrun": "npm start -- --dry-run"
   },
   "devDependencies": {
-    "brew-publish": "^2.2.0"
+    "brew-publish": "^2.3.1"
   }
 }
