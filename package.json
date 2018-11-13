@@ -34,7 +34,7 @@
     "lint:shell": "git ls-files bin | xargs shellcheck",
     "publish:brew": "brew-publish",
     "publish:github": "git push --follow-tags",
-    "postversion": "npm run publish:github && npm run publish:brew"
+    "postversion": "npm run publish:github && npm run publish:brew && npm publish"
   },
   "devDependencies": {
     "brew-publish": "^2.3.1",
