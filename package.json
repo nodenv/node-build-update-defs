@@ -21,14 +21,15 @@
     "test": "test"
   },
   "scripts": {
+    "start": "bin/nodenv-update-version-defs",
+    "start:dryrun": "npm start -- --dry-run",
     "posttest": "npm run lint",
     "lint": "npm run lint:js && npm run lint:shell",
     "lint:js": "prettier-standard '**/*.js' 'libexec/*' && standard --fix",
     "lint:shell": "git ls-files bin | xargs shellcheck",
     "publish:brew": "brew-publish",
-    "postversion": "git push --follow-tags && npm run publish:brew",
-    "start": "bin/nodenv-update-version-defs",
-    "start:dryrun": "npm start -- --dry-run"
+    "publish:github": "git push --follow-tags",
+    "postversion": "npm run publish:github && npm run publish:brew"
   },
   "devDependencies": {
     "brew-publish": "^2.3.1",
