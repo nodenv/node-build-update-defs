@@ -20,15 +20,25 @@
     ],
     "test": "test"
   },
+  "files": [
+    "bin",
+    "lib",
+    "libexec"
+  ],
   "scripts": {
+    "start": "bin/nodenv-update-version-defs",
+    "start:dryrun": "npm start -- --dry-run",
     "posttest": "npm run lint",
-    "lint": "git ls-files bin | xargs shellcheck",
-    "publish:brew": "brew-publish $npm_package_name v$npm_package_version",
-    "postversion": "git push --follow-tags && npm run publish:brew",
-    "start": "$npm_package_bin_nodenv_update_version_defs",
-    "start:dryrun": "npm start -- --dry-run"
+    "lint": "npm run lint:js && npm run lint:shell",
+    "lint:js": "prettier-standard '**/*.js' 'libexec/*' && standard --fix",
+    "lint:shell": "git ls-files bin | xargs shellcheck",
+    "publish:brew": "brew-publish",
+    "publish:github": "git push --follow-tags",
+    "postversion": "npm run publish:github && npm run publish:brew && npm publish"
   },
   "devDependencies": {
-    "brew-publish": "^2.2.0"
+    "brew-publish": "^2.3.1",
+    "prettier-standard": "^8.0.1",
+    "standard": "^12.0.1"
   }
 }

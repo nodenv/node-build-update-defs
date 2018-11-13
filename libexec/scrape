@@ -9,10 +9,12 @@ var nodesToScrape = []
 var options = {
   dryRun: false,
   overwrite: false,
-  definitionPaths: (process.env.NODE_BUILD_DEFINITIONS || 'share/node-build').split(':')
+  definitionPaths: (
+    process.env.NODE_BUILD_DEFINITIONS || 'share/node-build'
+  ).split(':')
 }
 
-process.argv.forEach(function (arg) {
+process.argv.forEach(function(arg) {
   switch (arg) {
     case '-f':
     case '--force':
@@ -32,9 +34,9 @@ process.argv.forEach(function (arg) {
 })
 
 if (!nodesToScrape.length) {
-  nodesToScrape = [ nodejs ]
+  nodesToScrape = [nodejs]
 }
 
-nodesToScrape.forEach(function(node){
+nodesToScrape.forEach(function(node) {
   scrape(node, options)
 })
