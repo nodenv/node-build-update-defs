@@ -23,7 +23,7 @@
   "scripts": {
     "posttest": "npm run lint",
     "lint": "npm run lint:js && npm run lint:shell",
-    "lint:js": "prettier-standard '**/*.js' && standard --fix",
+    "lint:js": "prettier-standard '**/*.js' 'libexec/*' && standard --fix",
     "lint:shell": "git ls-files bin | xargs shellcheck",
     "publish:brew": "brew-publish",
     "postversion": "git push --follow-tags && npm run publish:brew",
