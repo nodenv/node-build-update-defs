@@ -25,7 +25,7 @@
     "lint": "git ls-files bin | xargs shellcheck",
     "publish:brew": "brew-publish",
     "postversion": "git push --follow-tags && npm run publish:brew",
-    "start": "$npm_package_bin_nodenv_update_version_defs",
+    "start": "bin/nodenv-update-version-defs",
     "start:dryrun": "npm start -- --dry-run"
   },
   "devDependencies": {
