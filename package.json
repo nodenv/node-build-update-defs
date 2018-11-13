@@ -20,6 +20,11 @@
     ],
     "test": "test"
   },
+  "files": [
+    "bin",
+    "lib",
+    "libexec"
+  ],
   "scripts": {
     "start": "bin/nodenv-update-version-defs",
     "start:dryrun": "npm start -- --dry-run",
