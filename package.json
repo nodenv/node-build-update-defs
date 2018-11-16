@@ -32,9 +32,10 @@
     "lint": "npm run lint:js && npm run lint:shell",
     "lint:js": "prettier-standard '**/*.js' 'libexec/*' && standard --fix",
     "lint:shell": "git ls-files bin | xargs shellcheck",
+    "postversion": "npm publish",
+    "prepublishOnly": "npm run publish:github && npm run publish:brew",
     "publish:brew": "brew-publish",
-    "publish:github": "git push --follow-tags",
-    "postversion": "npm run publish:github && npm run publish:brew && npm publish"
+    "publish:github": "git push --follow-tags"
   },
   "devDependencies": {
     "brew-publish": "^2.3.1",
