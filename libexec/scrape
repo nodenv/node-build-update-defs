@@ -1,12 +1,12 @@
 #! /usr/bin/env node
 
-var scrape = require('../lib/scraper')
+const scrape = require('../lib/scraper')
 
-var nodejs = require('../lib/scraper-nodejs')
-var nodejsPre = require('../lib/scraper-nodejs-pre')
+const nodejs = require('../lib/scraper-nodejs')
+const nodejsPre = require('../lib/scraper-nodejs-pre')
 
-var nodesToScrape = []
-var options = {
+const nodesToScrape = []
+const options = {
   dryRun: false,
   overwrite: false,
   definitionPaths: (
@@ -34,7 +34,7 @@ process.argv.forEach(function(arg) {
 })
 
 if (!nodesToScrape.length) {
-  nodesToScrape = [nodejs]
+  nodesToScrape.push(nodejs)
 }
 
 nodesToScrape.forEach(function(node) {
