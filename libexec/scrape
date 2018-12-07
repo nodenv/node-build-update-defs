@@ -4,23 +4,17 @@ const DefinitionFile = require('../lib/definition-file')
 const NodejsOrgScraper = require('../lib/scraper-nodejs_org')
 
 const nodejs = new NodejsOrgScraper({
-  name: 'node',
   displayName: 'nodejs',
-  listing: 'https://nodejs.org/dist/index.json',
   baseUri: 'https://nodejs.org/dist/'
 })
 
 const nodejsPre = new NodejsOrgScraper({
-  name: 'node',
   displayName: 'nodejs release candidate',
-  listing: 'https://nodejs.org/download/rc/index.json',
   baseUri: 'https://nodejs.org/download/rc/'
 })
 
 const chakracore = new NodejsOrgScraper({
   name: 'chakracore',
-  displayName: 'chakracore',
-  listing: 'https://nodejs.org/download/chakracore-release/index.json',
   baseUri: 'https://nodejs.org/download/chakracore-release/'
 })
 
