@@ -17,6 +17,12 @@ const scrapers = {
   '--chakracore': new NodejsOrgScraper({
     name: 'chakracore',
     baseUri: 'https://nodejs.org/download/chakracore-release/'
+  }),
+
+  '--chakracore-pre': new NodejsOrgScraper({
+    name: 'chakracore',
+    displayName: 'chakracore release candidate',
+    baseUri: 'https://nodejs.org/download/chakracore-rc/'
   })
 }
 
@@ -43,6 +49,7 @@ process.argv.forEach(arg => {
     case '--nodejs':
     case '--nodejs-pre':
     case '--chakracore':
+    case '--chakracore-pre':
       scrapersToRun.push(arg)
       break
   }
