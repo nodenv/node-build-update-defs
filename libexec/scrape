@@ -17,6 +17,13 @@ const nodejsPre = new NodejsOrgScraper({
   baseUri: 'https://nodejs.org/download/rc/'
 })
 
+const chakracore = new NodejsOrgScraper({
+  name: 'chakracore',
+  displayName: 'chakracore',
+  listing: 'https://nodejs.org/download/chakracore-release/index.json',
+  baseUri: 'https://nodejs.org/download/chakracore-release/'
+})
+
 const scrapers = []
 const options = {
   dryRun: false,
@@ -26,7 +33,7 @@ const options = {
   ).split(':')
 }
 
-process.argv.forEach(function (arg) {
+process.argv.forEach(arg => {
   switch (arg) {
     case '-f':
     case '--force':
@@ -41,6 +48,9 @@ process.argv.forEach(function (arg) {
       break
     case '--nodejs-pre':
       scrapers.push(nodejsPre)
+      break
+    case '--chakracore':
+      scrapers.push(chakracore)
       break
   }
 })

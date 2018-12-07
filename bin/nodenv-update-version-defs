@@ -2,7 +2,7 @@
 #
 # Summary: Create build definitions from nodejs.org
 #
-# Usage: nodenv update-version-defs [-f] [-d <dir>] [-n] [--nodejs|--nodejs-pre]
+# Usage: nodenv update-version-defs [-f] [-d <dir>] [-n] [--nodejs|--nodejs-pre|--chakracore]
 #
 # Scrapes nodejs.org to create build definitions for node
 # versions not yet available to node-build
@@ -15,7 +15,9 @@
 #
 #   --nodejs           Scrape nodejs.org for node definitions;
 #   --nodejs-pre       Scrape nodejs.org for node pre-release definitions;
-#                      If none of --nodejs,--nodejs-pre are supplied, defaults to --nodejs
+#   --chakracore       Scrape nodejs.org for chakracore definitions;
+#                      Defaults to --nodejs, if none of:
+#                      --nodejs, --nodejs-pre, --chakracore
 #
 
 set -e
@@ -64,6 +66,7 @@ while [ $# -gt 0 ]; do
       echo --force
       echo --nodejs
       echo --nodejs-pre
+      echo --chakracore
       exit ;;
     -d | --destination )
       shift
@@ -72,7 +75,8 @@ while [ $# -gt 0 ]; do
     -f | --force | \
     -n | --dry-run | \
     --nodejs  | \
-    --nodejs-pre )
+    --nodejs-pre | \
+    --chakracore)
       SCRAPE_OPTS[${#SCRAPE_OPTS[*]}]="$1" ;;
     * )
       nodenv-help --usage update-version-defs >&2
