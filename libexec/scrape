@@ -1,12 +1,24 @@
 #! /usr/bin/env node
 
-var scrape = require('../lib/scraper')
+const DefinitionFile = require('../lib/definition-file')
+const NodejsOrgScraper = require('../lib/scraper-nodejs_org')
 
-var nodejs = require('../lib/scraper-nodejs')
-var nodejsPre = require('../lib/scraper-nodejs-pre')
+const nodejs = new NodejsOrgScraper({
+  name: 'node',
+  displayName: 'nodejs',
+  listing: 'https://nodejs.org/dist/index.json',
+  baseUri: 'https://nodejs.org/dist/'
+})
 
-var nodesToScrape = []
-var options = {
+const nodejsPre = new NodejsOrgScraper({
+  name: 'node',
+  displayName: 'nodejs release candidate',
+  listing: 'https://nodejs.org/download/rc/index.json',
+  baseUri: 'https://nodejs.org/download/rc/'
+})
+
+const scrapers = []
+const options = {
   dryRun: false,
   overwrite: false,
   definitionPaths: (
@@ -14,7 +26,7 @@ var options = {
   ).split(':')
 }
 
-process.argv.forEach(function(arg) {
+process.argv.forEach(function (arg) {
   switch (arg) {
     case '-f':
     case '--force':
@@ -25,18 +37,18 @@ process.argv.forEach(function(arg) {
       options.dryRun = true
       break
     case '--nodejs':
-      nodesToScrape.push(nodejs)
+      scrapers.push(nodejs)
       break
     case '--nodejs-pre':
-      nodesToScrape.push(nodejsPre)
+      scrapers.push(nodejsPre)
       break
   }
 })
 
-if (!nodesToScrape.length) {
-  nodesToScrape = [nodejs]
+if (!scrapers.length) {
+  scrapers.push(nodejs)
 }
 
-nodesToScrape.forEach(function(node) {
-  scrape(node, options)
-})
+DefinitionFile.configure(options)
+
+scrapers.forEach(scraper => scraper.scrape())
