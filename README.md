@@ -19,7 +19,7 @@ To install, clone this repository into your `$(nodenv root)/plugins` directory.
 
     $ brew install nodenv/nodenv/node-build-update-defs
 
-*Requires manually adding `$(brew --cellar nodenv/nodenv/node-build-update-defs)/<version>/share/node-build directory` to `NODE_BUILD_DEFINITIONS`*
+*Requires manually adding `$(brew --prefix node-build-update-defs)/share/node-build` directory to `NODE_BUILD_DEFINITIONS`*
 
 ### Installation with npm
 
