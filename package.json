@@ -35,6 +35,7 @@
     "lint": "npm run lint:js && npm run lint:shell",
     "lint:js": "prettier-standard '**/*.js' 'libexec/*' && standard --fix",
     "lint:shell": "git ls-files bin | xargs shellcheck",
+    "clean": "git clean -f -- share",
     "postversion": "npm publish",
     "prepublishOnly": "npm run publish:github && npm run publish:brew",
     "publish:brew": "brew-publish",
