@@ -1,2 +1,7 @@
-node_modules/
-nodenv-node-build-update-defs-*.tgz
+/node_modules
+/nodenv-node-build-update-defs-*.tgz
+
+# normally, it's okay for node-version to be committed
+# but since it would effect users of the plugin,
+# we can't allow it to get committed
+/.node-version
