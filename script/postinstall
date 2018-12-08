@@ -4,8 +4,10 @@ set -euo pipefail
 IFS=$'\n\t'
 
 installed_by_name() {
-  local pattern="[\"${npm_package_name-}"
+  local pattern='"remain":["'${npm_package_name-}
 
+  echo "$npm_package_name"
+  echo "pattern $pattern"
   [[ ${npm_config_argv:?} =~ $pattern ]]
 }
 
