@@ -29,14 +29,14 @@ To install, clone this repository into your `$(nodenv root)/plugins` directory.
 
 ## Requirements
 
-node >= 4.0
+node >= 6.0
 
 Unlike virtually every other nodenv plugin, node-build-update-defs actually depends on node.
 (The scraper runs on node.)
 A somewhat recent version of node is required – it is recommended to configure a node-version within the plugin directory itself (substitute your chosen version):
 
     $ cd "$(nodenv root)"/plugins/node-build-update-defs
-    $ nodenv local 4.0
+    $ nodenv local 6.0
 
 ## Usage
 
