@@ -1,7 +1,7 @@
 # node-build-update-defs
 
 A [nodenv][] plugin that provides a `nodenv update-version-defs` command to
-create [node-build][]-compatible definitions from nodejs.org.org.
+create [node-build][]-compatible definitions from [nodejs.org](https://nodejs.org).
 
 ## Installation
 
