@@ -9,7 +9,7 @@ installed_by_name() {
   [[ ${npm_config_argv:?} =~ $pattern ]]
 }
 
-echo "$npm_config_argv"
+echo "what $npm_config_argv"
 
 if ! installed_by_name; then
   exit
