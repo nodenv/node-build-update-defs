@@ -17,6 +17,10 @@
 #   --nodejs-pre       Scrape nodejs.org for node pre-release definitions;
 #                      If none of --nodejs,--nodejs-pre are supplied, defaults to --nodejs
 #
+# Notes: If this plugin is not installed directly into "$NODENV_ROOT/plugins",
+# (ie, homebrew, npm, etc) then 'share/node-build' must be added to the
+# colon-separated NODE_BUILD_DEFINITIONS path manually.
+#
 
 set -e
 

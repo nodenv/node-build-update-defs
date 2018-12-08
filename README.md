@@ -5,20 +5,38 @@ create [node-build][]-compatible definitions from nodejs.org.org.
 
 ## Installation
 
+Recommended installation is via git clone into your nodenv root, as per below.
+However, this plugin may also be installed via homebrew or npm.
+If installed outside of `NODENV_ROOT`, you must ensure its `share/node-build` directory has been added to the `NODE_BUILD_DEFINITIONS` path.
+
+### Installing with Git
+
 To install, clone this repository into your `$(nodenv root)/plugins` directory.
 
     $ git clone https://github.com/nodenv/node-build-update-defs.git "$(nodenv root)"/plugins/node-build-update-defs
 
+### Installing with Homebrew
+
+    $ brew install nodenv/nodenv/node-build-update-defs
+
+*Requires manually adding `$(brew --cellar nodenv/nodenv/node-build-update-defs)/<version>/share/node-build directory` to `NODE_BUILD_DEFINITIONS`*
+
+### Installation with npm
+
+    $ npm install --global @nodenv/node-build-update-defs
+
+*Requires manually adding `$(npm -g prefix)/lib/node_modules/@nodenv/node-build-update-defs/share/node-build` directory to `NODE_BUILD_DEFINITIONS`*
+
 ## Requirements
 
-node >= 4.0
+node >= 6.0
 
 Unlike virtually every other nodenv plugin, node-build-update-defs actually depends on node.
 (The scraper runs on node.)
 A somewhat recent version of node is required – it is recommended to configure a node-version within the plugin directory itself (substitute your chosen version):
 
     $ cd "$(nodenv root)"/plugins/node-build-update-defs
-    $ nodenv local 4.0
+    $ nodenv local 6.0
 
 ## Usage
 
@@ -26,6 +44,9 @@ A somewhat recent version of node is required – it is recommended to configure
 
 By default, this will create build definitions in the plugin's `share/node-build/` directory.
 This directory can be overridden with `--destination`.
+For scraped definitions to be picked up by `node-build`/`nodenv install`,
+the destination directory must be present in `NODE_BUILD_DEFINTIONS`.
+See [special environment variables](#special-environment-variables)
 
 Only definitions that aren't already in node-build's lookup path (`NODE_BUILD_DEFINITIONS`) will be created.
 That is, under typical usage only definitions not already shipped with node-build will be created.
@@ -35,7 +56,7 @@ To override this and write definitions for *all* available node/io versions, use
 ### Special environment variables
 
 - `NODE_BUILD_DEFINITIONS` can be a list of colon-separated paths that get additionally searched when looking up build definitions.
-All nodenv plugins' `share/node-build/` directories are appended to this path.
+The `share/node-build/` directories of any plugin under `$(nodenv root)/plugins` are appended to this path by `nodenv install` automatically.
 Definitions already found in these paths will be skipped (unless `--force`).
 
 ## Cleanup/Pruning
