@@ -56,7 +56,7 @@ process.argv.forEach(arg => {
 })
 
 if (!scrapersToRun.length) {
-  scrapersToRun.push('nodejs')
+  scrapersToRun.push('--nodejs')
 }
 
 DefinitionFile.configure(options)
