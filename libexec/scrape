@@ -3,21 +3,31 @@
 const DefinitionFile = require('../lib/definition-file')
 const NodejsOrgScraper = require('../lib/scraper-nodejs_org')
 
-const nodejs = new NodejsOrgScraper({
-  name: 'node',
-  displayName: 'nodejs',
-  listing: 'https://nodejs.org/dist/index.json',
-  baseUri: 'https://nodejs.org/dist/'
-})
+const scrapers = {
+  '--nodejs': new NodejsOrgScraper({
+    displayName: 'nodejs',
+    baseUri: 'https://nodejs.org/dist/'
+  }),
 
-const nodejsPre = new NodejsOrgScraper({
-  name: 'node',
-  displayName: 'nodejs release candidate',
-  listing: 'https://nodejs.org/download/rc/index.json',
-  baseUri: 'https://nodejs.org/download/rc/'
-})
+  '--nodejs-pre': new NodejsOrgScraper({
+    displayName: 'nodejs release candidate',
+    baseUri: 'https://nodejs.org/download/rc/'
+  }),
 
-const scrapers = []
+  '--chakracore': new NodejsOrgScraper({
+    name: 'chakracore',
+    baseUri: 'https://nodejs.org/download/chakracore-release/'
+  }),
+
+  '--chakracore-pre': new NodejsOrgScraper({
+    name: 'chakracore',
+    displayName: 'chakracore release candidate',
+    baseUri: 'https://nodejs.org/download/chakracore-rc/'
+  })
+}
+
+const scrapersToRun = []
+
 const options = {
   dryRun: false,
   overwrite: false,
@@ -26,7 +36,7 @@ const options = {
   ).split(':')
 }
 
-process.argv.forEach(function (arg) {
+process.argv.forEach(arg => {
   switch (arg) {
     case '-f':
     case '--force':
@@ -37,18 +47,18 @@ process.argv.forEach(function (arg) {
       options.dryRun = true
       break
     case '--nodejs':
-      scrapers.push(nodejs)
-      break
     case '--nodejs-pre':
-      scrapers.push(nodejsPre)
+    case '--chakracore':
+    case '--chakracore-pre':
+      scrapersToRun.push(arg)
       break
   }
 })
 
-if (!scrapers.length) {
-  scrapers.push(nodejs)
+if (!scrapersToRun.length) {
+  scrapersToRun.push('nodejs')
 }
 
 DefinitionFile.configure(options)
 
-scrapers.forEach(scraper => scraper.scrape())
+scrapersToRun.forEach(scraper => scrapers[scraper].scrape())
