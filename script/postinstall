@@ -3,6 +3,16 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+installed_by_name() {
+  local pattern=["${npm_package_name-}"]
+
+  [[ ${npm_config_argv:?} =~ $pattern ]]
+}
+
+if ! installed_by_name; then
+  exit
+fi
+
 cat <<-MSG
 ====================
 ${npm_package_name-} caveats:
