@@ -1,6 +1,6 @@
 {
   "name": "@nodenv/node-build-update-defs",
-  "version": "2.3.0-0",
+  "version": "2.3.0-1",
   "description": "Scrape build definitions from nodejs.org",
   "homepage": "https://github.com/nodenv/node-build-update-defs#readme",
   "license": "MIT",
