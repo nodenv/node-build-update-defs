@@ -2,7 +2,7 @@
 #
 # Summary: Create build definitions from nodejs.org
 #
-# Usage: nodenv update-version-defs [-f] [-d <dir>] [-n]
+# Usage: nodenv update-version-defs [-f] [-d <dir>] [-e <pattern> ] [-n]
 #        [--nodejs] [--nodejs-pre] [--nodejs-nightly]
 #        [--chakracore] [--chakracore-pre] [--chakracore-nightly]
 #
@@ -10,6 +10,8 @@
 # versions not yet available to node-build
 #
 #   -d/--destination   Directory where build definitions will be written
+#   -e/--regexp        Only write definitions whose basename patches the pattern.
+#                      Useful with -f to force overwrite a subset of definitions.
 #   -f/--force         Write build definitions that already exist somewhere in
 #                      NODE_BUILD_DEFINITIONS paths; possibly overwriting
 #   -n/--dry-run       Print build definitions that would have been written;
@@ -74,6 +76,7 @@ while [ $# -gt 0 ]; do
       echo --destination
       echo --dry-run
       echo --force
+      echo --regexp
       echo --nodejs
       echo --nodejs-pre
       echo --nodejs-nightly
@@ -85,11 +88,14 @@ while [ $# -gt 0 ]; do
       shift
       # overwrite the defs write target
       NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
+    -e | --regexp)
+      SCRAPE_OPTS+=("$1" "$2")
+      shift ;;
     -f | --force | \
     -n | --dry-run | \
     --nodejs | --nodejs-pre | --nodejs-nightly | \
     --chakracore | --chakracore-pre | --chakracore-nightly )
-      SCRAPE_OPTS[${#SCRAPE_OPTS[*]}]="$1" ;;
+      SCRAPE_OPTS+=("$1") ;;
     * )
       nodenv-help --usage update-version-defs >&2
       exit 1;;
