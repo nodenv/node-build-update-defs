@@ -14,6 +14,11 @@ const scrapers = {
     baseUri: 'https://nodejs.org/download/rc/'
   }),
 
+  '--nodejs-nightly': new NodejsOrgScraper({
+    displayName: 'nodejs nightly',
+    baseUri: 'https://nodejs.org/download/nightly/'
+  }),
+
   '--chakracore': new NodejsOrgScraper({
     name: 'chakracore',
     baseUri: 'https://nodejs.org/download/chakracore-release/'
@@ -23,6 +28,12 @@ const scrapers = {
     name: 'chakracore',
     displayName: 'chakracore release candidate',
     baseUri: 'https://nodejs.org/download/chakracore-rc/'
+  }),
+
+  '--chakracore-nightly': new NodejsOrgScraper({
+    name: 'chakracore',
+    displayName: 'chakracore nightly',
+    baseUri: 'https://nodejs.org/download/chakracore-nightly/'
   })
 }
 
@@ -48,8 +59,10 @@ process.argv.forEach(arg => {
       break
     case '--nodejs':
     case '--nodejs-pre':
+    case '--nodejs-nightly':
     case '--chakracore':
     case '--chakracore-pre':
+    case '--chakracore-nightly':
       scrapersToRun.push(arg)
       break
   }
