@@ -47,8 +47,12 @@ const options = {
   ).split(':')
 }
 
-process.argv.forEach(arg => {
+process.argv.forEach((arg, i, argv) => {
   switch (arg) {
+    case '-e':
+    case '--regexp':
+      options.pattern = argv[i + 1]
+      break
     case '-f':
     case '--force':
       options.overwrite = true
