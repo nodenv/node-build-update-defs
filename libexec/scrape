@@ -2,6 +2,7 @@
 
 const DefinitionFile = require('../lib/definition-file')
 const NodejsOrgScraper = require('../lib/scraper-nodejs_org')
+const GithubScraper = require('../lib/scraper-github')
 
 const scrapers = {
   '--nodejs': new NodejsOrgScraper({
@@ -34,6 +35,13 @@ const scrapers = {
     name: 'chakracore',
     displayName: 'chakracore nightly',
     baseUri: 'https://nodejs.org/download/chakracore-nightly/'
+  }),
+
+  '--graal': new GithubScraper({
+    name: 'graal',
+    org: 'oracle',
+    repo: 'graal',
+    matchReleases: release => /^vm-/.test(release.tag_name)
   })
 }
 
@@ -67,6 +75,7 @@ process.argv.forEach((arg, i, argv) => {
     case '--chakracore':
     case '--chakracore-pre':
     case '--chakracore-nightly':
+    case '--graal':
       scrapersToRun.push(arg)
       break
   }

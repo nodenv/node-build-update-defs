@@ -5,6 +5,7 @@
 # Usage: nodenv update-version-defs [-f] [-d <dir>] [-e <pattern> ] [-n]
 #        [--nodejs] [--nodejs-pre] [--nodejs-nightly]
 #        [--chakracore] [--chakracore-pre] [--chakracore-nightly]
+#        [--graal]
 #
 # Scrapes nodejs.org to create build definitions for node
 # versions not yet available to node-build
@@ -23,9 +24,8 @@
 #   --chakracore          Scrape nodejs.org for chakracore definitions;
 #   --chakracore-pre      Scrape nodejs.org for chakracore pre-release definitions;
 #   --chakracore-nightly  Scrape nodejs.org for chakracore nightly definitions;
-#                         Defaults to --nodejs, if none of:
-#                         --nodejs, --nodejs-pre, --nodejs-nightly,
-#                         --chakracore, --chakracore-pre, --chakracore-nightly
+#   --graal               Scrape github.com for graalvm definitions;
+#                         Defaults to --nodejs, if given
 #
 # Notes: If this plugin is not installed directly into "$NODENV_ROOT/plugins",
 # (ie, homebrew, npm, etc) then 'share/node-build' must be added to the
@@ -83,6 +83,7 @@ while [ $# -gt 0 ]; do
       echo --chakracore
       echo --chakracore-pre
       echo --chakracore-nightly
+      echo --graal
       exit ;;
     -d | --destination )
       shift
@@ -94,7 +95,8 @@ while [ $# -gt 0 ]; do
     -f | --force | \
     -n | --dry-run | \
     --nodejs | --nodejs-pre | --nodejs-nightly | \
-    --chakracore | --chakracore-pre | --chakracore-nightly )
+    --chakracore | --chakracore-pre | --chakracore-nightly | \
+    --graal )
       SCRAPE_OPTS+=("$1") ;;
     * )
       nodenv-help --usage update-version-defs >&2
