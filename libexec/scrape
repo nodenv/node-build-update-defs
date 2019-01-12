@@ -87,4 +87,4 @@ if (!scrapersToRun.length) {
 
 DefinitionFile.configure(options)
 
-scrapersToRun.forEach(scraper => scrapers[scraper].scrape())
+scrapersToRun.forEach(scraper => scrapers[scraper].scrape(options))
