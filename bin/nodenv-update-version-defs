@@ -67,7 +67,10 @@ done
 export NODE_BUILD_DEFINITIONS
 shopt -u nullglob
 
-declare -a SCRAPE_OPTS
+declare -a SCRAPERS
+unset DRY_RUN
+unset FORCE
+unset PATTERN
 
 # Provide nodenv completions
 while [ $# -gt 0 ]; do
@@ -89,15 +92,17 @@ while [ $# -gt 0 ]; do
       shift
       # overwrite the defs write target
       NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
+    -n | --dry-run)
+      DRY_RUN=true ;;
+    -f | --force)
+      FORCE=true ;;
     -e | --regexp)
-      SCRAPE_OPTS+=("$1" "$2")
+      PATTERN=$2
       shift ;;
-    -f | --force | \
-    -n | --dry-run | \
     --nodejs | --nodejs-pre | --nodejs-nightly | \
     --chakracore | --chakracore-pre | --chakracore-nightly | \
     --graal )
-      SCRAPE_OPTS+=("$1") ;;
+      SCRAPERS+=("${1#--}") ;;
     * )
       nodenv-help --usage update-version-defs >&2
       exit 1;;
@@ -108,4 +113,12 @@ done
 # change to plugin dir so .node-version will be respected
 cd "$INSTALL_PREFIX"
 
-exec ./libexec/scrape "${SCRAPE_OPTS[@]}"
+node - <<-JS
+require('./')({
+  dryRun: ${DRY_RUN:-false},
+  overwrite: ${FORCE:-false},
+  pattern: RegExp('${PATTERN}'),
+  run: [ $(printf '"%s",' "${SCRAPERS[@]:-nodejs}") ],
+  definitionPaths: '${NODE_BUILD_DEFINITIONS:-share/node-build}'.split(':')
+})
+JS
