@@ -38,7 +38,7 @@ const scrapers = {
   }),
 
   '--graal': new GithubScraper({
-    name: 'graal',
+    name: 'graal+ce',
     org: 'oracle',
     repo: 'graal',
     matchReleases: release => /^vm-/.test(release.tag_name)
