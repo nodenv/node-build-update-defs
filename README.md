@@ -3,6 +3,8 @@
 A [nodenv][] plugin that provides a `nodenv update-version-defs` command to
 create [node-build][]-compatible definitions from [nodejs.org](https://nodejs.org).
 
+<!-- toc -->
+
 ## Installation
 
 Recommended installation is via git clone into your nodenv root, as per below.
