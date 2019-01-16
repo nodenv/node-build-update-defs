@@ -5,6 +5,17 @@ create [node-build][]-compatible definitions from [nodejs.org](https://nodejs.or
 
 <!-- toc -->
 
+- [Installation](#installation)
+  * [Installing with Git](#installing-with-git)
+  * [Installing with Homebrew](#installing-with-homebrew)
+  * [Installation with npm](#installation-with-npm)
+- [Requirements](#requirements)
+- [Usage](#usage)
+  * [Special environment variables](#special-environment-variables)
+- [Cleanup/Pruning](#cleanuppruning)
+
+<!-- tocstop -->
+
 ## Installation
 
 Recommended installation is via git clone into your nodenv root, as per below.
