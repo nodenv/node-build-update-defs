@@ -39,7 +39,10 @@ const scrapers = {
     name: 'graal+ce',
     org: 'oracle',
     repo: 'graal',
-    matchReleases: release => /^vm-/.test(release.tag_name)
+    filterReleases: releases =>
+      releases
+        .filter(r => /^vm-/.test(r.tag_name))
+        .map(r => ({ ...r, tag_name: r.tag_name.replace(/^vm-/, '') }))
   })
 }
 
