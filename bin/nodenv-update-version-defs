@@ -25,7 +25,7 @@
 #   --chakracore-pre      Scrape nodejs.org for chakracore pre-release definitions;
 #   --chakracore-nightly  Scrape nodejs.org for chakracore nightly definitions;
 #   --graal               Scrape github.com for graalvm definitions;
-#                         Defaults to --nodejs, if given
+#                         Defaults to --nodejs, if none given
 #
 # Notes: If this plugin is not installed directly into "$NODENV_ROOT/plugins",
 # (ie, homebrew, npm, etc) then 'share/node-build' must be added to the
