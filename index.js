@@ -1,6 +1,6 @@
-const DefinitionFile = require('./lib/definition-file')
-const GithubScraper = require('./lib/scraper-github')
-const NodejsOrgScraper = require('./lib/scraper-nodejs_org')
+const DefinitionFile = require('./src/definition-file')
+const GithubScraper = require('./src/scraper-github')
+const NodejsOrgScraper = require('./src/scraper-nodejs_org')
 
 const scrapers = {
   nodejs: new NodejsOrgScraper({
