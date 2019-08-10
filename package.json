@@ -14,13 +14,13 @@
   },
   "directories": {
     "bin": "bin",
-    "lib": "lib",
+    "lib": "src",
     "test": "test"
   },
   "main": "index.js",
   "files": [
     "bin",
-    "lib",
+    "src",
     "script",
     "share"
   ],
