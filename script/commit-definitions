@@ -6,6 +6,11 @@
 #
 # Notes: extracted from https://github.com/nodenv/node-build-update-defs/blob/ac8e155cd8df843ca224c45ef55a36e20719bf9d/script/submit-definitions
 
+# change to repo-root;
+# allows the script to be invoked via `npm explore -- npm run defs:commit`
+# however, it will fail if this package is installed as a git-dep
+cd "$(git rev-parse --show-toplevel)" || exit
+
 git ls-files --others --exclude-standard -- share/node-build |
 while read -r node_def; do
   node_name=${node_def##*/}
