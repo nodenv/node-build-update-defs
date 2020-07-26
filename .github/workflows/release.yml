@@ -31,7 +31,7 @@ jobs:
         with:
           scope: nodenv
           registry-url: https://registry.npmjs.org
-      - run: npm publish --tags next
+      - run: npm publish --tag next
         if: ${{ env.PRERELEASE }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
