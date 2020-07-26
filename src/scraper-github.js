@@ -8,8 +8,8 @@ const throttleErrors = err => {
   throw new Error(
     err.statusCode === 403
       ? `being throttled; wait till ${new Date(
-        err.headers['x-ratelimit-reset'] * 1000
-      ).toLocaleTimeString()}`
+          err.headers['x-ratelimit-reset'] * 1000
+        ).toLocaleTimeString()}`
       : `${err.statusCode}: ${err.statusMessage}`
   )
 }
