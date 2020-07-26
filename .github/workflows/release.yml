@@ -1,16 +1,22 @@
 name: Release
-on: { push: { tags: 'v[0-9]+.[0-9]+.[0-9]+' } }
+on: { push: { tags: 'v[0-9]+.[0-9]+.[0-9]+*' } }
+
+env:
+  PRERELEASE: ${{ contains(github.ref, '-') }}
 
 jobs:
   github:
     runs-on: ubuntu-latest
     steps:
       - uses: jasonkarns/create-release@master
+        with:
+          prerelease: ${{ env.PRERELEASE }}
 
   homebrew:
     runs-on: ubuntu-latest
     steps:
       - uses: mislav/bump-homebrew-formula-action@v1
+        if: ${{ ! env.PRERELEASE }} # this is meant to guard the entire job but workflow-level env vars are buggy
         with:
           formula-name: node-build-update-defs
           homebrew-tap: nodenv/nodenv
@@ -25,6 +31,11 @@ jobs:
         with:
           scope: nodenv
           registry-url: https://registry.npmjs.org
+      - run: npm publish --tags next
+        if: ${{ env.PRERELEASE }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
       - run: npm publish
+        if: ${{ ! env.PRERELEASE }} # TODO: find a way to simplify this
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
