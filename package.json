@@ -30,6 +30,7 @@
     "defs:scrape": "npm start",
     "defs:commit": "script/commit-definitions",
     "defs:submit": "script/submit-definitions",
+    "defs:verify": "script/verify-definitions",
     "start": "bin/nodenv-update-version-defs",
     "start:dryrun": "npm start -- --dry-run",
     "posttest": "npm run lint",
