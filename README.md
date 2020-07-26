@@ -3,6 +3,10 @@
 A [nodenv][] plugin that provides a `nodenv update-version-defs` command to
 create [node-build][]-compatible definitions from [nodejs.org](https://nodejs.org).
 
+[![Latest GitHub Release](https://img.shields.io/github/v/release/nodenv/node-build-update-defs?logo=github&sort=semver)](https://github.com/nodenv/node-build-update-defs/releases/latest)
+[![Latest npm Release](https://img.shields.io/npm/v/@nodenv/node-build-update-defs)](https://www.npmjs.com/package/@nodenv/node-build-update-defs/v/latest)
+[![Test](https://img.shields.io/github/workflow/status/nodenv/node-build-update-defs/Test?label=tests&logo=github)](https://github.com/nodenv/node-build-update-defs/actions?query=workflow%3ATest)
+
 <!-- toc -->
 
 - [Installation](#installation)
