@@ -28,6 +28,7 @@
     "postinstall": "script/postinstall",
     "clean": "git clean -f -- share",
     "defs:scrape": "npm start -- ",
+    "defs:lint:lts": "script/lts-lint-definitions",
     "defs:commit": "script/commit-definitions",
     "defs:submit": "script/submit-definitions",
     "defs:verify": "script/verify-definitions",
