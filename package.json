@@ -37,12 +37,14 @@
     "lint": "npm run lint:js && npm run lint:shell",
     "lint:js": "prettier-standard '**/*.js' && standard --fix",
     "lint:shell": "git ls-files bin | xargs shellcheck",
+    "relnotes": "changelog",
     "postversion": "git push --follow-tags"
   },
   "engines": {
     "node": ">=6"
   },
   "devDependencies": {
+    "@nodenv/devutil": "^0.1.1",
     "prettier-standard": "^16.4.1",
     "standard": "^14.3.4"
   }
