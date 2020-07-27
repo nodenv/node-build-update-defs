@@ -8,6 +8,7 @@ jobs:
   github:
     runs-on: ubuntu-latest
     steps:
+      - run: npm ci
       - run: npm run -s relnotes | tee relnotes.txt
       - uses: jasonkarns/create-release@master
         with:
