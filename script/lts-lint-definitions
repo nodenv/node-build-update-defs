@@ -95,8 +95,6 @@ assert_message() {
   local v=$2
   local msg_var=${stage}_WARNING
 
-  echo "asserting $stage message for v$v" >&2
-
   grep -e "warn_$stage" --files-without-match "${DIR%/}/$v".* | while read -r file; do
     echo "$file"
     if [ -n "$FIX" ]; then
