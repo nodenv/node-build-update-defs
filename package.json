@@ -27,7 +27,7 @@
   "scripts": {
     "postinstall": "script/postinstall",
     "clean": "git clean -f -- share",
-    "defs:scrape": "npm start",
+    "defs:scrape": "npm start -- ",
     "defs:commit": "script/commit-definitions",
     "defs:submit": "script/submit-definitions",
     "defs:verify": "script/verify-definitions",
