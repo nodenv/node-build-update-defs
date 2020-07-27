@@ -8,6 +8,8 @@ jobs:
   github:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with: { fetch-depth: 0 }
       - run: npm ci
       - run: npm run -s relnotes | tee relnotes.txt
       - uses: jasonkarns/create-release@master
