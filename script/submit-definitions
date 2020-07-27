@@ -21,6 +21,11 @@ abort() {
   exit 1
 }
 
+# change to repo-root;
+# allows the script to be invoked via `npm explore -- npm run defs:commit`
+# however, it will fail if this package is installed as a git-dep
+cd "$(git rev-parse --show-toplevel)" || abort "ERROR: Can't get to correct directory"
+
 if ! type -p hub >/dev/null; then
   abort "ERROR: You have to install hub to proceed."
 fi
