@@ -2,13 +2,16 @@
 
 # asserts definitions contain the appropriate warning message per the LTS schedule
 #
-# Usage: script/lts-lint-definitions
+# Usage: script/lts-lint-definitions [--fix] [DIR]
 #
 # Options:
+#   --fix   Fix violations by inserting the necessary warning message.
+#   DIR     Directory of definitions to lint (default: share/node-build/)
 #
 # Output:
 #   failing definition filenames to STDOUT
 #   status messages to STDERR
+#
 
 set -euo pipefail
 IFS=$'\n\t'
