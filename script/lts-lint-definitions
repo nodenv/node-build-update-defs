@@ -86,8 +86,8 @@ prepend_message() {
   local msg=${!1}
   local file=$2
 
-  sed -i'' -e "1 i\\
-$msg" "$file"
+  sed -e "1 i\\
+$msg" "$file" 1<> "$file"
 }
 
 assert_message() {
