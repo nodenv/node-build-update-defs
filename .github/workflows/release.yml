@@ -8,8 +8,10 @@ jobs:
   github:
     runs-on: ubuntu-latest
     steps:
+      - run: npm run -s relnotes | tee relnotes.txt
       - uses: jasonkarns/create-release@master
         with:
+          body_path: relnotes.txt
           prerelease: ${{ env.PRERELEASE }}
 
   homebrew:
