@@ -1,6 +1,8 @@
 name: Test
 on: [push, pull_request, workflow_dispatch]
 
+permissions: read-all
+
 jobs:
   test:
     uses: nodenv/.github/.github/workflows/test.yml@v4
