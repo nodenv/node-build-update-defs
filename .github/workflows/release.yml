@@ -1,26 +1,12 @@
 name: Release
-on: { push: { tags: 'v[0-9]+.[0-9]+.[0-9]+' } }
+on:
+  push: { tags: 'v[0-9]+.[0-9]+.[0-9]+*' }
 
 jobs:
-  github:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-      - run: npm ci
-      - run: npm run -s relnotes | tee relnotes.txt
-      - uses: jasonkarns/create-release@master
-        with: { body_path: relnotes.txt }
-
-  homebrew:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: mislav/bump-homebrew-formula-action@v1
-        with:
-          formula-name: node-build-update-defs
-          homebrew-tap: nodenv/nodenv
-        env:
-          COMMITTER_TOKEN: ${{ secrets.BOT_TOKEN }}
+  release:
+    permissions: { contents: write }
+    uses: nodenv/.github/.github/workflows/release.yml@v4
+    secrets: inherit
 
   npm:
     runs-on: ubuntu-latest
