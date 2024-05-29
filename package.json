@@ -45,7 +45,6 @@
     "node": ">=6"
   },
   "devDependencies": {
-    "@nodenv/devutil": "^0.1.1",
     "prettier-standard": "^16.4.1",
     "standard": "^14.3.4"
   }
