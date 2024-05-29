@@ -41,7 +41,7 @@ lts_WARNING="before_install_package() {\\
 "
 
 schedule_json() {
-  curl -qsSfJL https://raw.githubusercontent.com/nodejs/Release/master/schedule.json
+  curl -qsSfJL https://raw.githubusercontent.com/nodejs/Release/main/schedule.json
 }
 
 # Flattens the LTS schedule.json into bash variables:
