@@ -30,18 +30,18 @@ If installed outside of `NODENV_ROOT`, you must ensure its `share/node-build` di
 
 To install, clone this repository into your `$(nodenv root)/plugins` directory.
 
-    $ git clone https://github.com/nodenv/node-build-update-defs.git "$(nodenv root)"/plugins/node-build-update-defs
+    git clone https://github.com/nodenv/node-build-update-defs.git "$(nodenv root)"/plugins/node-build-update-defs
 
 ### Installing with Homebrew
 
-    $ brew install nodenv/nodenv/node-build-update-defs
+    brew install nodenv/nodenv/node-build-update-defs
 
 *__Note:__
 Requires manually adding `$(brew --prefix node-build-update-defs)/share/node-build` directory to `NODE_BUILD_DEFINITIONS`*
 
 ### Installation with npm
 
-    $ npm install --global @nodenv/node-build-update-defs
+    npm install --global @nodenv/node-build-update-defs
 
 *__Note:__
 Requires manually adding `$(npm -g prefix)/lib/node_modules/@nodenv/node-build-update-defs/share/node-build` directory to `NODE_BUILD_DEFINITIONS`*
@@ -54,12 +54,12 @@ Unlike virtually every other nodenv plugin, node-build-update-defs actually depe
 (The scraper runs on node.)
 A somewhat recent version of node is required – it is recommended to configure a node-version within the plugin directory itself (substitute your chosen version):
 
-    $ cd "$(nodenv root)"/plugins/node-build-update-defs
-    $ nodenv local 6.0
+    cd "$(nodenv root)"/plugins/node-build-update-defs
+    nodenv local 6.0
 
 ## Usage
 
-    $ nodenv update-version-defs
+    nodenv update-version-defs
 
 By default, this will create build definitions in the plugin's `share/node-build/` directory.
 This directory can be overridden with `--destination`.
@@ -84,7 +84,7 @@ In normal operation, build definitions will gradually build up in this plugin's 
 Eventually, as the scraped definitions are added to node-build itself, these user-scraped definitions will become duplicates when their node-build installation is updated.
 In order to ensure one is frequently running on the "proper" build definitions from node-build, any duplicates in the plugin directory ought to be removed.
 
-    $ nodenv prune-version-defs
+    nodenv prune-version-defs
 
 This subcommand removes (or lists with `--dry-run`) any duplicate build definitions.
 Like `update-version-defs`, `--destination <dir>` overrides the default value of `<plugin-root>/share/node-build` as the directory from which duplicates are removed.
