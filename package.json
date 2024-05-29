@@ -34,6 +34,7 @@
     "defs:verify": "script/verify-definitions",
     "start": "bin/nodenv-update-version-defs",
     "start:dryrun": "npm start -- --dry-run",
+    "test": "echo todo",
     "posttest": "npm run lint",
     "lint": "npm run lint:js && npm run lint:shell",
     "lint:js": "prettier-standard '**/*.js' && standard --fix",
