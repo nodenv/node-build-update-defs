@@ -4,9 +4,11 @@ on:
   pull_request:
   workflow_dispatch:
   schedule: # monthly (10th)
-    - cron: '0 0 10 * *' # https://crontab.guru/#0_0_10_*_*
+  - cron: '0 0 10 * *' # https://crontab.guru/#0_0_10_*_*
 
 permissions: read-all
+
+env: {ossf_results: results.sarif}
 
 jobs:
   test:
@@ -17,18 +19,17 @@ jobs:
     if: github.ref_name == 'main'
     permissions: {id-token: write, security-events: write}
     runs-on: ubuntu-latest
-    env: {results: results.sarif}
     steps:
     - uses: actions/checkout@v4
     - uses: ossf/scorecard-action@v2.3.3
       with:
-        results_file: ${{ env.results }}
+        results_file: ${{ env.ossf_results }}
         results_format: sarif
         publish_results: true
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.results }}
-        path: ${{ env.results }}
+        name: ${{ env.ossf_results }}
+        path: ${{ env.ossf_results }}
     - uses: github/codeql-action/upload-sarif@v3
       with:
-        sarif_file: ${{ env.results }}
+        sarif_file: ${{ env.ossf_results }}
