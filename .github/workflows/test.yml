@@ -1,12 +1,14 @@
 name: Test
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule: # monthly (10th)
+  - cron: '0 0 10 * *' # https://crontab.guru/#0_0_10_*_*
 
 permissions: read-all
 
 jobs:
   test:
     uses: nodenv/.github/.github/workflows/test.yml@v4
-    permissions:
-      contents: read
-      packages: read
-      statuses: write # to report status checks
+    permissions: {contents: read, packages: read, statuses: write}
