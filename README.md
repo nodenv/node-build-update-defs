@@ -5,7 +5,7 @@ create [node-build][]-compatible definitions from [nodejs.org](https://nodejs.or
 
 [![Latest GitHub Release](https://img.shields.io/github/v/release/nodenv/node-build-update-defs?logo=github&sort=semver)](https://github.com/nodenv/node-build-update-defs/releases/latest)
 [![Latest npm Release](https://img.shields.io/npm/v/@nodenv/node-build-update-defs)](https://www.npmjs.com/package/@nodenv/node-build-update-defs/v/latest)
-[![Test](https://img.shields.io/github/workflow/status/nodenv/node-build-update-defs/Test?label=tests&logo=github)](https://github.com/nodenv/node-build-update-defs/actions?query=workflow%3ATest)
+[![Test](https://img.shields.io/github/actions/workflow/status/nodenv/node-build-update-defs/test.yml?label=tests&logo=github)](https://github.com/nodenv/node-build-update-defs/actions/workflows/test.yml)
 
 <!-- toc -->
 
@@ -36,15 +36,15 @@ To install, clone this repository into your `$(nodenv root)/plugins` directory.
 
     brew install nodenv/nodenv/node-build-update-defs
 
-*__Note:__
-Requires manually adding `$(brew --prefix node-build-update-defs)/share/node-build` directory to `NODE_BUILD_DEFINITIONS`*
+> [!note]
+> Requires manually adding `$(brew --prefix node-build-update-defs)/share/node-build` directory to `NODE_BUILD_DEFINITIONS`
 
 ### Installation with npm
 
     npm install --global @nodenv/node-build-update-defs
 
-*__Note:__
-Requires manually adding `$(npm -g prefix)/lib/node_modules/@nodenv/node-build-update-defs/share/node-build` directory to `NODE_BUILD_DEFINITIONS`*
+> [!note]
+> Requires manually adding `$(npm -g prefix)/lib/node_modules/@nodenv/node-build-update-defs/share/node-build` directory to `NODE_BUILD_DEFINITIONS`
 
 ## Requirements
 
