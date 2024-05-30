@@ -75,37 +75,44 @@ unset PATTERN
 # Provide nodenv completions
 while [ $# -gt 0 ]; do
   case "$1" in
-    --complete )
-      echo --destination
-      echo --dry-run
-      echo --force
-      echo --regexp
-      echo --nodejs
-      echo --nodejs-pre
-      echo --nodejs-nightly
-      echo --chakracore
-      echo --chakracore-pre
-      echo --chakracore-nightly
-      echo --graal
-      exit ;;
-    -d | --destination )
-      shift
-      # overwrite the defs write target
-      NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
-    -n | --dry-run)
-      DRY_RUN=true ;;
-    -f | --force)
-      FORCE=true ;;
-    -e | --regexp)
-      PATTERN=$2
-      shift ;;
-    --nodejs | --nodejs-pre | --nodejs-nightly | \
+  --complete)
+    echo --destination
+    echo --dry-run
+    echo --force
+    echo --regexp
+    echo --nodejs
+    echo --nodejs-pre
+    echo --nodejs-nightly
+    echo --chakracore
+    echo --chakracore-pre
+    echo --chakracore-nightly
+    echo --graal
+    exit
+    ;;
+  -d | --destination)
+    shift
+    # overwrite the defs write target
+    NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}"
+    ;;
+  -n | --dry-run)
+    DRY_RUN=true
+    ;;
+  -f | --force)
+    FORCE=true
+    ;;
+  -e | --regexp)
+    PATTERN=$2
+    shift
+    ;;
+  --nodejs | --nodejs-pre | --nodejs-nightly | \
     --chakracore | --chakracore-pre | --chakracore-nightly | \
-    --graal )
-      SCRAPERS+=("${1#--}") ;;
-    * )
-      nodenv-help --usage update-version-defs >&2
-      exit 1;;
+    --graal)
+    SCRAPERS+=("${1#--}")
+    ;;
+  *)
+    nodenv-help --usage update-version-defs >&2
+    exit 1
+    ;;
   esac
   shift
 done
