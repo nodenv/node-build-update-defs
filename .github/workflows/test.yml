@@ -3,31 +3,16 @@ on:
   push:
   pull_request:
   workflow_dispatch:
-  schedule: # monthly (10th)
-  - cron: '0 0 10 * *' # https://crontab.guru/#0_0_10_*_*
+  schedule: [{cron: '0 0 10 * *'}] # monthly https://crontab.guru/#0_0_10_*_*
 
 permissions: read-all
 
 jobs:
   test:
     uses: nodenv/.github/.github/workflows/test.yml@v4
-    permissions: {contents: read, packages: read, statuses: write}
-
-  ossf-scorecard:
-    if: github.ref_name == 'main'
-    permissions: {id-token: write, security-events: write}
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: ossf/scorecard-action@v2.3.3
-      with:
-        results_file: results.sarif
-        results_format: sarif
-        publish_results: true
-    - uses: actions/upload-artifact@v4
-      with:
-        name: results.sarif
-        path: results.sarif
-    - uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: results.sarif
+    permissions:
+      contents: read
+      packages: read
+      id-token: write
+      security-events: write
+      statuses: write
