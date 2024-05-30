@@ -4,7 +4,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule: # monthly (10th)
-  - cron: '0 0 10 * *' # https://crontab.guru/#0_0_10_*_*
+    - cron: '0 0 10 * *' # https://crontab.guru/#0_0_10_*_*
 
 permissions: read-all
 
@@ -12,3 +12,23 @@ jobs:
   test:
     uses: nodenv/.github/.github/workflows/test.yml@v4
     permissions: {contents: read, packages: read, statuses: write}
+
+  ossf-scorecard:
+    if: github.ref_name == 'main'
+    permissions: {id-token: write, security-events: write}
+    runs-on: ubuntu-latest
+    env: {results: results.sarif}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ossf/scorecard-action@v2.3.3
+      with:
+        results_file: ${{ env.results }}
+        results_format: sarif
+        publish_results: true
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.results }}
+        path: ${{ env.results }}
+    - uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: ${{ env.results }}
