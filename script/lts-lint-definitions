@@ -22,8 +22,8 @@ TODAY=$(date -u +'%F')
 
 for arg in "$@"; do
   case "$arg" in
-    --fix) FIX=1;;
-    *) DIR=$arg;;
+  --fix) FIX=1 ;;
+  *) DIR=$arg ;;
   esac
 done
 
@@ -87,7 +87,7 @@ prepend_message() {
   local file=$2
 
   sed -e "1 i\\
-$msg" "$file" 1<> "$file"
+$msg" "$file" 1<>"$file"
 }
 
 assert_message() {
@@ -116,8 +116,10 @@ assert_warnings() {
 
     echo "v$version maint: $maint_date eol: $eol_date" >&2
     {
-      if past "$eol_date"; then assert_message eol "$version"
-      elif past "$maint_date"; then assert_message lts "$version"
+      if past "$eol_date"; then
+        assert_message eol "$version"
+      elif past "$maint_date"; then
+        assert_message lts "$version"
       fi
     } || status=$?
   done

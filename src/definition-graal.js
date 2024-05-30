@@ -5,9 +5,9 @@ module.exports = class GraalDefinition extends Definition {
     return ({ url, sha }) =>
       url.match(/\.tar\.gz$/)
         ? {
-          platform: this.platformFrom(url),
-          downloadUri: `${url}#${sha}`
-        }
+            platform: this.platformFrom(url),
+            downloadUri: `${url}#${sha}`
+          }
         : null
   }
 

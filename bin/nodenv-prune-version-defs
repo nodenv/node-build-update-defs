@@ -54,29 +54,36 @@ shopt -u nullglob
 # Provide nodenv completions
 while [ $# -gt 0 ]; do
   case "$1" in
-    --complete )
-      echo --destination
-      echo --dry-run
-      echo --force
-      echo --help
-      echo --verbose
-      exit ;;
-    -d | --destination )
-      shift
-      # overwrite the defs write target
-      NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}" ;;
-    -f | --force )
-      FORCE=true ;;
-    -h | --help )
-      exec nodenv-help update-version-defs ;;
-    -n | --dry-run )
-      DRY_RUN=true
-      VERBOSE=true ;;
-    -v | --verbose )
-      VERBOSE=true ;;
-    * )
-      nodenv-help --usage update-version-defs >&2
-      exit 1;;
+  --complete)
+    echo --destination
+    echo --dry-run
+    echo --force
+    echo --help
+    echo --verbose
+    exit
+    ;;
+  -d | --destination)
+    shift
+    # overwrite the defs write target
+    NODE_BUILD_DEFINITIONS="$(abs_dirname "${1%/}/"):${NODE_BUILD_DEFINITIONS}"
+    ;;
+  -f | --force)
+    FORCE=true
+    ;;
+  -h | --help)
+    exec nodenv-help update-version-defs
+    ;;
+  -n | --dry-run)
+    DRY_RUN=true
+    VERBOSE=true
+    ;;
+  -v | --verbose)
+    VERBOSE=true
+    ;;
+  *)
+    nodenv-help --usage update-version-defs >&2
+    exit 1
+    ;;
   esac
   shift
 done

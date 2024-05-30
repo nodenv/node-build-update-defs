@@ -1,9 +1,12 @@
 name: Test
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
+
+permissions: read-all
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: npm cit
+    uses: nodenv/.github/.github/workflows/test.yml@v4
+    permissions:
+      contents: read
+      packages: read
+      statuses: write # to report status checks

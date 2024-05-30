@@ -8,7 +8,7 @@ set -eufo pipefail
 IFS=$'\n\t'
 
 help_text() {
-  sed -ne '/^#/!q;s/.\{1,2\}//;1d;p' < "$0"
+  sed -ne '/^#/!q;s/.\{1,2\}//;1d;p' <"$0"
 }
 
 compute_sha2() {
@@ -27,7 +27,7 @@ download_and_verify() {
   local file="$2"
   local expected="$3"
   download_package "$url" "$file" || return $?
-  checksum="$(compute_sha2 < "$file")"
+  checksum="$(compute_sha2 <"$file")"
   if [ "$checksum" != "$expected" ]; then
     {
       echo "Error: $url doesn't match its checksum:"
@@ -64,7 +64,7 @@ verify() {
     url="${url%#*}"
     echo "Verifying checksum for $url"
     file="${TMPDIR:-/tmp}/$checksum"
-    download_and_verify "$url" "$file" "$checksum" || (( status += 1))
+    download_and_verify "$url" "$file" "$checksum" || ((status += 1))
   done < <(xargs cat | extract_urls)
 
   if [ "$status" != 0 ]; then
@@ -74,23 +74,25 @@ verify() {
 }
 
 case "${1-}" in
-  '' )
-    { echo "COMMIT_RANGE or FILES required"
-      help_text
-    } >&2
-    exit 1;;
-  -h | --help )
+'')
+  {
+    echo "COMMIT_RANGE or FILES required"
     help_text
-    ;;
-  - )
-    verify
-    ;;
-  -- )
-    echo "$@" | verify
-    ;;
-  * )
-    echo "Verifying changes from $1"
-    changed_files "$1"
-    potentially_new_packages "$1" | verify
-    ;;
+  } >&2
+  exit 1
+  ;;
+-h | --help)
+  help_text
+  ;;
+-)
+  verify
+  ;;
+--)
+  echo "$@" | verify
+  ;;
+*)
+  echo "Verifying changes from $1"
+  changed_files "$1"
+  potentially_new_packages "$1" | verify
+  ;;
 esac
