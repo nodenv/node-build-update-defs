@@ -117,15 +117,12 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-# change to plugin dir so .node-version will be respected
-cd "$INSTALL_PREFIX"
-
 node - <<-JS
-require('./')({
+require('${INSTALL_PREFIX:?}/')({
   dryRun: ${DRY_RUN:-false},
   overwrite: ${FORCE:-false},
   pattern: RegExp('${PATTERN}'),
   run: [ $(printf '"%s",' "${SCRAPERS[@]:-nodejs}") ],
-  definitionPaths: '${NODE_BUILD_DEFINITIONS:-share/node-build}'.split(':')
+  definitionPaths: '${NODE_BUILD_DEFINITIONS:-$INSTALL_PREFIX/share/node-build}'.split(':')
 })
 JS
