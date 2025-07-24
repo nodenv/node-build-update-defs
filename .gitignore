@@ -1,4 +1,7 @@
 /node_modules
+/package*/
+/tmp
+
 /nodenv-node-build-update-defs-*.tgz
 
 # normally, it's okay for node-version to be committed
