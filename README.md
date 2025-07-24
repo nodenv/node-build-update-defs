@@ -22,8 +22,8 @@ create [node-build][]-compatible definitions from [nodejs.org](https://nodejs.or
 
 ## Installation
 
-Recommended installation is via git clone into your nodenv root, as per below.
-However, this plugin may also be installed via homebrew or npm.
+Recommended installation is via Git clone into your nodenv root, as per below.
+However, this plugin may also be installed via Homebrew or npm.
 If installed outside of `NODENV_ROOT`, you must ensure its `share/node-build` directory has been added to the `NODE_BUILD_DEFINITIONS` path.
 
 ### Installing with Git
