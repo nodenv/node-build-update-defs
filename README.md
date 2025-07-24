@@ -10,12 +10,12 @@ create [node-build][]-compatible definitions from [nodejs.org](https://nodejs.or
 <!-- toc -->
 
 - [Installation](#installation)
-  * [Installing with Git](#installing-with-git)
-  * [Installing with Homebrew](#installing-with-homebrew)
-  * [Installation with npm](#installation-with-npm)
+  - [Installing with Git](#installing-with-git)
+  - [Installing with Homebrew](#installing-with-homebrew)
+  - [Installation with npm](#installation-with-npm)
 - [Requirements](#requirements)
 - [Usage](#usage)
-  * [Special environment variables](#special-environment-variables)
+  - [Special environment variables](#special-environment-variables)
 - [Cleanup/Pruning](#cleanuppruning)
 
 <!-- tocstop -->
@@ -69,14 +69,14 @@ See [special environment variables](#special-environment-variables)
 
 Only definitions that aren't already in node-build's lookup path (`NODE_BUILD_DEFINITIONS`) will be created.
 That is, under typical usage only definitions not already shipped with node-build will be created.
-To override this and write definitions for *all* available node/io versions, use `--force`.
+To override this and write definitions for _all_ available node/io versions, use `--force`.
 (This will overwrite any conflicting definition files that already exist in the destination directory.)
 
 ### Special environment variables
 
 - `NODE_BUILD_DEFINITIONS` can be a list of colon-separated paths that get additionally searched when looking up build definitions.
-The `share/node-build/` directories of any plugin under `$(nodenv root)/plugins` are appended to this path by `nodenv install` automatically.
-Definitions already found in these paths will be skipped (unless `--force`).
+  The `share/node-build/` directories of any plugin under `$(nodenv root)/plugins` are appended to this path by `nodenv install` automatically.
+  Definitions already found in these paths will be skipped (unless `--force`).
 
 ## Cleanup/Pruning
 
@@ -88,8 +88,8 @@ In order to ensure one is frequently running on the "proper" build definitions f
 
 This subcommand removes (or lists with `--dry-run`) any duplicate build definitions.
 Like `update-version-defs`, `--destination <dir>` overrides the default value of `<plugin-root>/share/node-build` as the directory from which duplicates are removed.
-Duplicates are searched for under `NODE_BUILD_DEFINITIONS` and are determined by both filename *and* contents.
-The file contents check can be overridden with `--force`,  which will delete duplicates based solely on filename.
+Duplicates are searched for under `NODE_BUILD_DEFINITIONS` and are determined by both filename _and_ contents.
+The file contents check can be overridden with `--force`, which will delete duplicates based solely on filename.
 
 This subcommand is silent by default, only printing removed duplicates if `--verbose`.
 (`--dry-run` implies `--verbose`)

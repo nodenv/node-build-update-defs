@@ -1,62 +1,62 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require("fs")
+const path = require("path")
 
 module.exports = class DefinitionFile {
-  static configure ({ dryRun, overwrite, pattern, definitionPaths }) {
+  static configure({ dryRun, overwrite, pattern, definitionPaths }) {
     this.destDir = definitionPaths[0]
     this.writer = dryRun ? this.dryRunWriter : this.fsWriter
     this.matching = pattern
-      ? definitionFile => definitionFile.matches(pattern)
+      ? (definitionFile) => definitionFile.matches(pattern)
       : () => true
     this.toWrite = overwrite
       ? () => true
-      : definitionFile => !definitionFile.existsIn(definitionPaths)
+      : (definitionFile) => !definitionFile.existsIn(definitionPaths)
   }
 
-  static write (file, definition) {
+  static write(file, definition) {
     return file.write(this.writer, definition)
   }
 
-  static dryRunWriter (filename, content) {
-    return new Promise(resolve => {
-      console.log('------- Writing', filename)
+  static dryRunWriter(filename, content) {
+    return new Promise((resolve) => {
+      console.log("------- Writing", filename)
       console.log(content)
-      console.log('-------------------')
+      console.log("-------------------")
       resolve()
     })
   }
 
-  static fsWriter (...args) {
+  static fsWriter(...args) {
     return new Promise((resolve, reject) =>
-      fs.writeFile(...args, err => (err ? reject(err) : resolve()))
+      fs.writeFile(...args, (err) => (err ? reject(err) : resolve()))
     )
   }
 
-  constructor (props) {
+  constructor(props) {
     // at least: name, version
     Object.assign(this, props)
   }
 
-  get basename () {
-    return `${this.name}-${this.version.replace(/^v/, '')}`.replace(/node-/, '')
+  get basename() {
+    return `${this.name}-${this.version.replace(/^v/, "")}`.replace(/node-/, "")
   }
 
-  filename (dir = this.constructor.destDir) {
+  filename(dir = this.constructor.destDir) {
     return path.join(dir, this.basename)
   }
 
-  existsIn (dirs) {
-    return dirs.some(dir => fs.existsSync(this.filename(dir)))
+  existsIn(dirs) {
+    return dirs.some((dir) => fs.existsSync(this.filename(dir)))
   }
 
-  matches (pattern) {
+  matches(pattern) {
     return this.basename.match(pattern)
   }
 
-  write (write, definition) {
+  write(write, definition) {
     return Promise.resolve(definition)
-      .then(contents => write(this.filename(), contents.toString()))
-      .then(() => console.log(this.basename, 'written'))
-      .catch(e => console.error(`${this.basename} skipped (${e})`))
+      .then((contents) => write(this.filename(), contents.toString()))
+      .then(() => console.log(this.basename, "written"))
+      .catch((e) => console.error(`${this.basename} skipped (${e})`))
   }
 }
