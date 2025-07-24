@@ -4,7 +4,7 @@
   "description": "Scrape build definitions from nodejs.org",
   "homepage": "https://github.com/nodenv/node-build-update-defs#readme",
   "license": "MIT",
-  "author": "Jason Karns <jason@karns.name> (http://jason.karns.name)",
+  "author": "Jason Karns <jason.karns@gmail.com> (http://jasonkarns.com)",
   "repository": {
     "type": "git",
     "url": "https://github.com/nodenv/node-build-update-defs.git"
