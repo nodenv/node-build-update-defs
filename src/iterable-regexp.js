@@ -1,20 +1,20 @@
 module.exports = class IterableRegExp {
-  constructor (regex) {
+  constructor(regex) {
     this.regex = regex
   }
 
-  allMatches (data) {
+  allMatches(data) {
     this.regex.lastIndex = 0
     this.data = data
     return Array.from(this)
   }
 
-  next () {
+  next() {
     const value = this.regex.exec(this.data)
     return { value, done: !value }
   }
 
-  [Symbol.iterator] () {
+  [Symbol.iterator]() {
     return this
   }
 }

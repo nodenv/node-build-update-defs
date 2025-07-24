@@ -4,13 +4,16 @@
   "description": "Scrape build definitions from nodejs.org",
   "homepage": "https://github.com/nodenv/node-build-update-defs#readme",
   "license": "MIT",
-  "author": "Jason Karns <jason@karns.name> (http://jason.karns.name)",
+  "author": "Jason Karns <jason.karns@gmail.com> (http://jasonkarns.com)",
   "repository": {
     "type": "git",
     "url": "https://github.com/nodenv/node-build-update-defs.git"
   },
   "bugs": {
     "url": "https://github.com/nodenv/node-build-update-defs/issues"
+  },
+  "engines": {
+    "node": ">=6"
   },
   "directories": {
     "bin": "bin",
@@ -25,27 +28,28 @@
     "share"
   ],
   "scripts": {
-    "postinstall": "script/postinstall",
     "clean": "git clean -f -- share",
-    "defs:scrape": "npm start -- ",
-    "defs:lint:lts": "script/lts-lint-definitions",
+    "start": "npm run defs:scrape",
+    "defs:scrape": "bin/nodenv-update-version-defs",
     "defs:commit": "script/commit-definitions",
-    "defs:submit": "script/submit-definitions",
     "defs:verify": "script/verify-definitions",
-    "start": "bin/nodenv-update-version-defs",
-    "start:dryrun": "npm start -- --dry-run",
-    "test": "echo todo",
+    "defs:submit": "script/submit-definitions",
+    "defs:lint:lts": "script/lts-lint-definitions",
+    "test": "bats ${CI:+--tap} test",
     "posttest": "npm run lint",
-    "lint": "npm run lint:js && npm run lint:shell",
-    "lint:js": "prettier-standard '**/*.js' && standard --fix",
-    "lint:shell": "git ls-files bin | xargs shellcheck",
+    "lint": "npm run lint:js && npm run lint:shell && npm run lint:format",
+    "lint:format": "prettier --write .",
+    "lint:js": "eslint --fix",
+    "lint:shell": "git ls-files bin script | xargs shellcheck",
+    "postinstall": "script/postinstall",
     "postversion": "git push --follow-tags"
   },
-  "engines": {
-    "node": ">=6"
-  },
   "devDependencies": {
-    "prettier-standard": "^16.4.1",
-    "standard": "^17.1.2"
+    "neostandard": "^0.12.2",
+    "prettier": "^3.6.2"
+  },
+  "prettier": {
+    "semi": false,
+    "trailingComma": "none"
   }
 }

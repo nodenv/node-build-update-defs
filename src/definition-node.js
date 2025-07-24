@@ -1,30 +1,30 @@
-const Definition = require('./definition')
+const Definition = require("./definition")
 
 class Binary {
-  constructor (props) {
+  constructor(props) {
     Object.assign(this, props)
   }
 
-  get url () {
+  get url() {
     return `${this.baseUri}${this.version}/${this.packageName}.tar.gz`
   }
 
-  get downloadUri () {
+  get downloadUri() {
     return `${this.url}#${this.shasum}`
   }
 
-  get platform () {
+  get platform() {
     return `${this.os}-${this.arch}`
   }
 }
 
 module.exports = class NodeDefinition extends Definition {
-  static Binary (definition) {
+  static Binary(definition) {
     Binary.prototype.baseUri = definition.baseUri
-    return bin => new Binary(bin)
+    return (bin) => new Binary(bin)
   }
 
-  get url () {
+  get url() {
     return `${this.baseUri}${this.version}/${this.packageName}.tar.gz`
   }
 }
