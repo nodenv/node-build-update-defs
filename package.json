@@ -37,14 +37,20 @@
     "defs:lint:lts": "script/lts-lint-definitions",
     "test": "bats ${CI:+--tap} test",
     "posttest": "npm run lint",
-    "lint": "npm run lint:js && npm run lint:shell",
+    "lint": "npm run lint:js && npm run lint:shell && npm run lint:format",
+    "lint:format": "prettier --write .",
     "lint:js": "prettier-standard '**/*.js' && standard --fix",
     "lint:shell": "git ls-files bin script | xargs shellcheck",
     "postinstall": "script/postinstall",
     "postversion": "git push --follow-tags"
   },
   "devDependencies": {
+    "prettier": "^3.6.2",
     "prettier-standard": "^16.4.1",
     "standard": "^17.1.2"
+  },
+  "prettier": {
+    "semi": false,
+    "trailingComma": "none"
   }
 }
