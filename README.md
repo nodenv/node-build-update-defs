@@ -51,11 +51,21 @@ To install, clone this repository into your `$(nodenv root)/plugins` directory.
 node >= 6.0
 
 Unlike virtually every other nodenv plugin, node-build-update-defs actually depends on node.
-(The scraper runs on node.)
-A somewhat recent version of node is required – it is recommended to configure a node-version within the plugin directory itself (substitute your chosen version):
+(The scraper itself is written in JavaScript.)
+Virtually any modern version of node is sufficient, but one must be available.
+Otherwise, you may experience an error like:
 
-    cd "$(nodenv root)"/plugins/node-build-update-defs
-    nodenv local 6.0
+> nodenv: version \_ is not installed
+
+It is recommended to configure a node-version for the plugin itself (substitute your chosen version):
+
+    echo 6.0 > "$(nodenv root)"/plugins/node-build-update-defs/.node-version
+
+If you have node installed and available in `PATH` _outside_ of nodenv
+(by system package manager or Homebrew, for instance)
+then the best configuration is to use that for the plugin:
+
+    echo system > "$(nodenv root)"/plugins/node-build-update-defs/.node-version
 
 ## Usage
 
