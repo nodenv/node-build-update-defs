@@ -1,6 +1,6 @@
 # node-build-update-defs
 
-[nodenv][] plugin to generate [node-build][]-compatible definitions from [nodejs.org](https://nodejs.org)
+A [nodenv][] plugin to generate [node-build][] definitions from [nodejs.org](https://nodejs.org).
 
 [![Tests](https://img.shields.io/github/actions/workflow/status/nodenv/node-build-update-defs/test.yml?label=tests&logo=github)](https://github.com/nodenv/node-build-update-defs/actions/workflows/test.yml)
 [![Latest GitHub Release](https://img.shields.io/github/v/release/nodenv/node-build-update-defs?label=github&logo=github&sort=semver)](https://github.com/nodenv/node-build-update-defs/releases/latest)

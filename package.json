@@ -1,7 +1,7 @@
 {
   "name": "@nodenv/node-build-update-defs",
   "version": "2.11.2",
-  "description": "Scrape build definitions from nodejs.org",
+  "description": "A nodenv plugin to generate node-build definitions from nodejs.org.",
   "homepage": "https://github.com/nodenv/node-build-update-defs#readme",
   "license": "MIT",
   "author": "Jason Karns <jason.karns@gmail.com> (http://jasonkarns.com)",
