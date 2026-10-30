@@ -79,7 +79,7 @@ parse_json() {
 }
 
 past() {
-  [[ "$1" < "$TODAY" ]]
+  [ -n "$1" ] && [[ "$1" < "$TODAY" ]]
 }
 
 prepend_message() {
@@ -111,8 +111,9 @@ assert_warnings() {
     local eol_date_var="v${version}_end"
     local maint_date_var="v${version}_maintenance"
 
-    local eol_date=${!eol_date_var}
-    local maint_date=${!maint_date_var}
+    # newer release lines may omit dates that aren't scheduled yet
+    local eol_date=${!eol_date_var-}
+    local maint_date=${!maint_date_var-}
 
     echo "v$version maint: $maint_date eol: $eol_date" >&2
     {
